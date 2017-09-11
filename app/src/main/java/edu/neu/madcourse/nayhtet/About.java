@@ -20,6 +20,5 @@ public class About extends AppCompatActivity {
 
         TextView textView = (TextView) findViewById(R.id.aboutTextView4);
         textView.setText(imei);
-        String something = "What?";
     }
 }

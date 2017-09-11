@@ -13,6 +13,7 @@
         android:layout_marginLeft="16dp"
         android:layout_marginTop="16dp"
         android:hint="@string/text_author"
+        android:text="@string/text_author"
         app:layout_constraintLeft_toLeftOf="parent"
         app:layout_constraintTop_toTopOf="parent" />
 
@@ -23,6 +24,7 @@
         android:layout_marginLeft="16dp"
         android:layout_marginTop="16dp"
         android:hint="@string/text_email"
+        android:text="@string/text_email"
         app:layout_constraintLeft_toLeftOf="parent"
         app:layout_constraintTop_toBottomOf="@+id/aboutTextView1" />
 
@@ -33,6 +35,7 @@
         android:layout_marginLeft="16dp"
         android:layout_marginTop="16dp"
         android:hint="@string/text_year"
+        android:text="@string/text_year"
         app:layout_constraintLeft_toLeftOf="parent"
         app:layout_constraintTop_toBottomOf="@+id/aboutTextView2" />
 
@@ -45,7 +48,7 @@
         android:adjustViewBounds="false"
         android:contentDescription="@drawable/headshot"
         app:layout_constraintLeft_toLeftOf="parent"
-        app:layout_constraintTop_toBottomOf="@+id/aboutTextView3"
+        app:layout_constraintTop_toBottomOf="@+id/aboutTextView5"
         app:srcCompat="@drawable/headshot" />
 
     <TextView
@@ -57,4 +60,15 @@
         android:text="@android:string/defaultMsisdnAlphaTag"
         app:layout_constraintLeft_toLeftOf="parent"
         app:layout_constraintTop_toBottomOf="@+id/aboutImageView1" />
+
+    <TextView
+        android:id="@+id/aboutTextView5"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginLeft="16dp"
+        android:layout_marginTop="16dp"
+        android:hint="@string/text_program"
+        android:text="@string/text_program"
+        app:layout_constraintLeft_toLeftOf="parent"
+        app:layout_constraintTop_toBottomOf="@+id/aboutTextView3" />
 </android.support.constraint.ConstraintLayout>
