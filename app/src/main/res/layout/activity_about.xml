@@ -43,7 +43,7 @@
         android:layout_marginLeft="16dp"
         android:layout_marginTop="16dp"
         android:adjustViewBounds="false"
-        android:contentDescription="@string:headshot"
+        android:contentDescription="@drawable/headshot"
         app:layout_constraintLeft_toLeftOf="parent"
         app:layout_constraintTop_toBottomOf="@+id/aboutTextView3"
         app:srcCompat="@drawable/headshot" />
