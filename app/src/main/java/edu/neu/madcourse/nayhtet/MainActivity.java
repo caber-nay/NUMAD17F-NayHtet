@@ -1,8 +1,10 @@
 package edu.neu.madcourse.nayhtet;
 
+import android.content.Context;
 import android.content.Intent;
 import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
+import android.telephony.TelephonyManager;
 import android.view.View;
 import android.widget.EditText;
 
@@ -19,6 +21,14 @@ public class MainActivity extends AppCompatActivity {
         Intent intent = new Intent(this, DisplayMessageActivity.class);
         EditText editText = (EditText) findViewById(R.id.editText);
         String message = editText.getText().toString();
+        intent.putExtra(EXTRA_MESSAGE, message);
+        startActivity(intent);
+    }
+
+    public void about(View view){
+        Intent intent = new Intent(this, About.class);
+        //TelephonyManager telephonyManager = (TelephonyManager)getSystemService(Context.TELEPHONY_SERVICE);
+        String message = "IMEI number";//telephonyManager.getDeviceId();
         intent.putExtra(EXTRA_MESSAGE, message);
         startActivity(intent);
     }

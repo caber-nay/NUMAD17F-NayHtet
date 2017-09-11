@@ -1,5 +1,9 @@
 <resources>
-    <string name="app_name">NUMAD17F-NayHtet</string>
+    <string name="app_name">Nay Htet</string>
     <string name="edit_message">Enter a message</string>
     <string name="button_send">Send</string>
+    <string name="button_about">About</string>
+    <string name="text_author">Nay Htet</string>
+    <string name="text_email">htet.na@husky.neu.edu</string>
+    <string name="text_year">First Year</string>
 </resources>
