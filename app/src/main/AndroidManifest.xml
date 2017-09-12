@@ -3,6 +3,7 @@
 <manifest xmlns:android="http://schemas.android.com/apk/res/android"
     package="edu.neu.madcourse.nayhtet">
 
+    <!-- Indicates the app needs READ_PHONE_STATE permission -->
     <uses-permission android:name="android.permission.READ_PHONE_STATE"/>
 
     <application
