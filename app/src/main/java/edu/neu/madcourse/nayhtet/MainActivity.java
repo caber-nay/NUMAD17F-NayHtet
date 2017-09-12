@@ -53,29 +53,22 @@ public class MainActivity extends AppCompatActivity {
             // Asks for user's permission
             ActivityCompat.requestPermissions(this,new String[]{Manifest.permission.READ_PHONE_STATE},
                     READ_PHONE_STATE_PERMISSION);
-            /*if(imeiPermission){
-                imei = getIMEI();
-            }else{
-                imei = "Could not access IMEI";
-            }*/
         }else{
-            // Already has permission
+            // Already has permission so get IMEI
             imei = getIMEI();
             intent.putExtra(EXTRA_MESSAGE, imei);
             startActivity(intent);
         }
     }
-
-
+    // Overriding onRequestPermissionsResult to prompt user for permission
     @Override
     public void onRequestPermissionsResult(int requestCode, String permissions[], int[] grantResults) {
         switch (requestCode) {
             case READ_PHONE_STATE_PERMISSION: {
                 if (grantResults.length > 0 && grantResults[0] == PackageManager.PERMISSION_GRANTED) {
                     // Permission Granted
-                    imeiPermission = true;
-                } else {// Permission Denied
-                    imeiPermission = false;
+                } else {
+                    // Permission Denied
                 }
             }
         }
