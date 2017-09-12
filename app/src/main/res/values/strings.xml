@@ -8,4 +8,6 @@
     <string name="text_year">First Year</string>
     <string name="button_error">Generate Error</string>
     <string name="text_program">Masters of Science in Computer Science</string>
+    <string name="text_versionCode">Version Code</string>
+    <string name="text_versionName">Version Name</string>
 </resources>

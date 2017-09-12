@@ -2,21 +2,32 @@ package edu.neu.madcourse.nayhtet;
 
 import android.content.Context;
 import android.content.Intent;
+import android.content.pm.PackageInfo;
+import android.content.pm.PackageManager;
 import android.provider.Settings;
 import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
 import android.telephony.TelephonyManager;
 import android.view.View;
 import android.widget.EditText;
+import android.widget.TextView;
 
 import java.util.UUID;
 
 public class MainActivity extends AppCompatActivity {
     public static final String EXTRA_MESSAGE = "edu.neu.madcourse.nayhtet";
+
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_main);
+
+        TextView verCode = (TextView) findViewById(R.id.textView1);
+        String text = Integer.toString(BuildConfig.VERSION_CODE);
+        verCode.setText(text);
+
+        TextView verName = (TextView) findViewById(R.id.textView2);
+        verName.setText(BuildConfig.VERSION_NAME);
     }
 
     // method for Send button
