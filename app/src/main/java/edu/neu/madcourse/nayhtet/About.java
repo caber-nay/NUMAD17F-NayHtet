@@ -19,6 +19,6 @@ public class About extends AppCompatActivity {
         String imei = intent.getStringExtra(MainActivity.EXTRA_MESSAGE);
 
         TextView textView = (TextView) findViewById(R.id.aboutTextView4);
-        textView.setText(imei);
+        textView.setText("IMEI: "+imei);
     }
 }

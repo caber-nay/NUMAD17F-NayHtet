@@ -1,10 +1,12 @@
 package edu.neu.madcourse.nayhtet;
 
+import android.Manifest;
 import android.content.Context;
 import android.content.Intent;
 import android.content.pm.PackageInfo;
 import android.content.pm.PackageManager;
 import android.provider.Settings;
+import android.support.v4.app.ActivityCompat;
 import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
 import android.telephony.TelephonyManager;
@@ -16,6 +18,9 @@ import java.util.UUID;
 
 public class MainActivity extends AppCompatActivity {
     public static final String EXTRA_MESSAGE = "edu.neu.madcourse.nayhtet";
+    private Context ContextCompat;
+    private static final int READ_PHONE_STATE_PERMISSION = 646;
+    private String id = "";
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -40,15 +45,43 @@ public class MainActivity extends AppCompatActivity {
     }
     // method for About button
     public void about(View view){
+        String imei;
         Intent intent = new Intent(this, About.class);
-        //String imei = Settings.Secure.getString(this.getContentResolver(), Settings.Secure.ANDROID_ID);
-        String imei = UUID.randomUUID().toString();
-        //TelephonyManager telephonyManager = (TelephonyManager)getSystemService(Context.TELEPHONY_SERVICE);
-        //imei = telephonyManager.getDeviceId();
 
+        // checking if app has permission to access IMEI
+        if(checkSelfPermission(Manifest.permission.READ_PHONE_STATE) != PackageManager.PERMISSION_GRANTED){
+            // Asks for user's permission
+            ActivityCompat.requestPermissions(this,new String[]{Manifest.permission.READ_PHONE_STATE},
+                    READ_PHONE_STATE_PERMISSION);
+            imei = id;
+        }else{
+            // Already has permission
+            imei = getIMEI();
+        }
         intent.putExtra(EXTRA_MESSAGE, imei);
         startActivity(intent);
     }
+
+    @Override
+    public void onRequestPermissionsResult(int requestCode, String permissions[], int[] grantResults) {
+        switch (requestCode) {
+            case READ_PHONE_STATE_PERMISSION: {
+                if (grantResults.length > 0 && grantResults[0] == PackageManager.PERMISSION_GRANTED) {
+                    // Permission Granted
+                    id = getIMEI();
+                } else {// Permission Denied
+                    id = "Could not access IMEI";
+                }
+            }
+        }
+    }
+
+    // Method to get IMEI
+    public String getIMEI(){
+        TelephonyManager telephonyManager = (TelephonyManager)getSystemService(Context.TELEPHONY_SERVICE);
+        return telephonyManager.getDeviceId();
+    }
+
     // method for Generate Error button
     public void generateError(View view){
         Intent intent = null;
