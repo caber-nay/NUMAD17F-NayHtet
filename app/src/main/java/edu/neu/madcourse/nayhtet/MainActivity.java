@@ -7,6 +7,7 @@ import android.content.pm.PackageInfo;
 import android.content.pm.PackageManager;
 import android.provider.Settings;
 import android.support.v4.app.ActivityCompat;
+import android.support.v4.content.ContextCompat;
 import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
 import android.telephony.TelephonyManager;
@@ -18,9 +19,8 @@ import java.util.UUID;
 
 public class MainActivity extends AppCompatActivity {
     public static final String EXTRA_MESSAGE = "edu.neu.madcourse.nayhtet";
-    private Context ContextCompat;
     private static final int READ_PHONE_STATE_PERMISSION = 646;
-    private String id = "";
+    private boolean imeiPermission = false;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -45,15 +45,19 @@ public class MainActivity extends AppCompatActivity {
     }
     // method for About button
     public void about(View view){
-        String imei;
+        String imei = null;
         Intent intent = new Intent(this, About.class);
 
         // checking if app has permission to access IMEI
-        if(checkSelfPermission(Manifest.permission.READ_PHONE_STATE) != PackageManager.PERMISSION_GRANTED){
+        if(ContextCompat.checkSelfPermission(this, Manifest.permission.READ_PHONE_STATE) != PackageManager.PERMISSION_GRANTED){
             // Asks for user's permission
             ActivityCompat.requestPermissions(this,new String[]{Manifest.permission.READ_PHONE_STATE},
                     READ_PHONE_STATE_PERMISSION);
-            imei = id;
+            if(imeiPermission){
+                imei = getIMEI();
+            }else{
+                imei = "Could not access IMEI";
+            }
         }else{
             // Already has permission
             imei = getIMEI();
@@ -68,9 +72,9 @@ public class MainActivity extends AppCompatActivity {
             case READ_PHONE_STATE_PERMISSION: {
                 if (grantResults.length > 0 && grantResults[0] == PackageManager.PERMISSION_GRANTED) {
                     // Permission Granted
-                    id = getIMEI();
+                    imeiPermission = true;
                 } else {// Permission Denied
-                    id = "Could not access IMEI";
+                    imeiPermission = false;
                 }
             }
         }

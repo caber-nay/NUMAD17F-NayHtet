@@ -3,7 +3,6 @@
 <manifest xmlns:android="http://schemas.android.com/apk/res/android"
     package="edu.neu.madcourse.nayhtet">
 
-    <!-- Declares permission use for getting IMEI -->
     <uses-permission android:name="android.permission.READ_PHONE_STATE"/>
 
     <application
