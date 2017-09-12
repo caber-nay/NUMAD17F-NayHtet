@@ -53,7 +53,6 @@ public class MainActivity extends AppCompatActivity {
             // Asks for user's permission
             ActivityCompat.requestPermissions(this,new String[]{Manifest.permission.READ_PHONE_STATE},
                     READ_PHONE_STATE_PERMISSION);
-
             /*if(imeiPermission){
                 imei = getIMEI();
             }else{
@@ -66,6 +65,7 @@ public class MainActivity extends AppCompatActivity {
             startActivity(intent);
         }
     }
+
 
     @Override
     public void onRequestPermissionsResult(int requestCode, String permissions[], int[] grantResults) {
