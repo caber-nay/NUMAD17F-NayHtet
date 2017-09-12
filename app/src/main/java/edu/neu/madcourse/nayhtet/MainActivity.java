@@ -53,17 +53,18 @@ public class MainActivity extends AppCompatActivity {
             // Asks for user's permission
             ActivityCompat.requestPermissions(this,new String[]{Manifest.permission.READ_PHONE_STATE},
                     READ_PHONE_STATE_PERMISSION);
-            if(imeiPermission){
+
+            /*if(imeiPermission){
                 imei = getIMEI();
             }else{
                 imei = "Could not access IMEI";
-            }
+            }*/
         }else{
             // Already has permission
             imei = getIMEI();
+            intent.putExtra(EXTRA_MESSAGE, imei);
+            startActivity(intent);
         }
-        intent.putExtra(EXTRA_MESSAGE, imei);
-        startActivity(intent);
     }
 
     @Override
