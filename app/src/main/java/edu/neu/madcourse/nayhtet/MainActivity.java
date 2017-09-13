@@ -43,9 +43,10 @@ public class MainActivity extends AppCompatActivity {
         intent.putExtra(EXTRA_MESSAGE, message);
         startActivity(intent);
     }
+
     // method for About button
     public void about(View view){
-        String imei = null;
+        String imei;
         Intent intent = new Intent(this, About.class);
 
         // checking if app has permission to access IMEI
@@ -60,13 +61,14 @@ public class MainActivity extends AppCompatActivity {
             startActivity(intent);
         }
     }
+
     // Overriding onRequestPermissionsResult to prompt user for permission
     @Override
     public void onRequestPermissionsResult(int requestCode, String permissions[], int[] grantResults) {
         switch (requestCode) {
             case READ_PHONE_STATE_PERMISSION: {
                 if (grantResults.length > 0 && grantResults[0] == PackageManager.PERMISSION_GRANTED) {
-                    // Permission Granted
+                    ;// Permission Granted
                 } else {
                     // Permission Denied
                 }
