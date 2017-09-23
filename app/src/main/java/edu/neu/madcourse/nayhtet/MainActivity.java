@@ -62,6 +62,11 @@ public class MainActivity extends AppCompatActivity {
         }
     }
 
+    public void dictionary(View view){
+        Intent intent = new Intent(this, DictionaryActivity.class);
+        startActivity(intent);
+    }
+
     // Overriding onRequestPermissionsResult to prompt user for permission
     @Override
     public void onRequestPermissionsResult(int requestCode, String permissions[], int[] grantResults) {
