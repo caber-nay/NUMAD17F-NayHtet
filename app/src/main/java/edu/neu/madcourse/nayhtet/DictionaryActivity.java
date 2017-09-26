@@ -13,7 +13,6 @@ import java.util.ArrayList;
 /**
  * This Activity is called when Dictionary button is clicked
  */
-
 public class DictionaryActivity extends AppCompatActivity{
 
     EditText textEntryBox;
@@ -40,16 +39,12 @@ public class DictionaryActivity extends AppCompatActivity{
             public void onTextChanged(CharSequence charSequence, int i, int i1, int i2) {
             }
 
-
             @Override
             public void afterTextChanged(Editable editable) {
                 adapter.add(editable.toString());
             }
         });
     }
-
-
-
 
     public void clear(View view){
         textEntryBox.setText("");   //clears the text entry box
