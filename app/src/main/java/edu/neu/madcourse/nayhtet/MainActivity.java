@@ -3,9 +3,7 @@ package edu.neu.madcourse.nayhtet;
 import android.Manifest;
 import android.content.Context;
 import android.content.Intent;
-import android.content.pm.PackageInfo;
 import android.content.pm.PackageManager;
-import android.provider.Settings;
 import android.support.v4.app.ActivityCompat;
 import android.support.v4.content.ContextCompat;
 import android.support.v7.app.AppCompatActivity;
@@ -15,12 +13,9 @@ import android.view.View;
 import android.widget.EditText;
 import android.widget.TextView;
 
-import java.util.UUID;
-
 public class MainActivity extends AppCompatActivity {
     public static final String EXTRA_MESSAGE = "edu.neu.madcourse.nayhtet";
     private static final int READ_PHONE_STATE_PERMISSION = 646;
-    private boolean imeiPermission = false;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
