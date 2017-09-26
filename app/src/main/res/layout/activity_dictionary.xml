@@ -4,56 +4,56 @@
     xmlns:tools="http://schemas.android.com/tools"
     android:orientation="vertical"
     android:layout_width="match_parent"
-    android:layout_height="match_parent">
+    android:layout_height="match_parent"
+    tools:context="edu.neu.madcourse.nayhtet.DictionaryActivity">
 
 
     <EditText
         android:id="@+id/dictionaryEditText"
-        android:layout_width="wrap_content"
+        android:layout_width="0dp"
         android:layout_height="wrap_content"
-        android:layout_marginLeft="16dp"
         android:layout_marginTop="16dp"
         android:ems="10"
         android:hint="@string/edit_dictionary"
         android:inputType="textPersonName"
         app:layout_constraintLeft_toLeftOf="parent"
         app:layout_constraintTop_toTopOf="parent"
-        android:layout_marginStart="16dp" />
+        android:layout_marginStart="16dp"
+        android:layout_marginLeft="16dp"
+        app:layout_constraintRight_toLeftOf="@+id/dictionaryButtonClear"
+        android:layout_marginRight="16dp"
+        app:layout_constraintHorizontal_bias="0.0" />
 
     <Button
         android:id="@+id/dictionaryButtonClear"
-        android:layout_width="wrap_content"
+        android:layout_width="0dp"
         android:layout_height="wrap_content"
-        android:layout_marginLeft="16dp"
-        android:layout_marginRight="16dp"
+        android:layout_marginEnd="16dp"
         android:layout_marginTop="16dp"
+        android:onClick="clear"
         android:text="@string/button_clear"
-        app:layout_constraintLeft_toRightOf="@+id/dictionaryEditText"
         app:layout_constraintRight_toRightOf="parent"
-        app:layout_constraintTop_toTopOf="parent"
-        app:layout_constraintHorizontal_bias="0.508"
-        android:layout_marginStart="16dp"
-        android:layout_marginEnd="16dp" />
+        app:layout_constraintTop_toTopOf="parent" />
 
     <Button
         android:id="@+id/dictionaryButtonAcknowledgments"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:layout_marginRight="16dp"
         android:layout_marginTop="16dp"
         android:text="@string/button_acknowledgments"
         app:layout_constraintRight_toRightOf="parent"
         app:layout_constraintTop_toBottomOf="@+id/dictionaryButtonClear"
-        android:layout_marginEnd="16dp" />
+        android:layout_marginEnd="16dp"/>
 
     <ListView
         android:id="@+id/dictionaryListWords"
-        android:layout_width="183dp"
+        android:layout_width="0dp"
         android:layout_height="221dp"
         android:layout_marginLeft="16dp"
         android:layout_marginRight="16dp"
         android:layout_marginTop="16dp"
         android:background="@android:color/white"
+        app:layout_constraintHorizontal_bias="0.0"
         app:layout_constraintLeft_toLeftOf="parent"
         app:layout_constraintRight_toLeftOf="@+id/dictionaryButtonAcknowledgments"
         app:layout_constraintTop_toBottomOf="@+id/dictionaryEditText" />
