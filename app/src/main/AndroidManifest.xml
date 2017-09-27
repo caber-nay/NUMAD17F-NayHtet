@@ -46,7 +46,7 @@
         <activity android:name=".DictionaryAcknowledgmentsActivity"
             android:parentActivityName=".DictionaryActivity"
             android:label="@string/title_acknowledgments"
-            android:configChanges="orientation|screenSize|keyboard">
+            android:configChanges="keyboardHidden|orientation">
             <meta-data
                 android:name="android.support.PARENT_ACTIVITY"
                 android:value=".DictionaryActivity"/>
