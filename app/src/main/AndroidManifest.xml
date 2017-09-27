@@ -43,6 +43,14 @@
                 android:name="android.support.PARENT_ACTIVITY"
                 android:value=".MainActivity"/>
         </activity>
+        <activity android:name=".DictionaryAcknowledgmentsActivity"
+            android:parentActivityName=".DictionaryActivity"
+            android:label="@string/title_acknowledgments"
+            android:configChanges="orientation|screenSize|keyboard">
+            <meta-data
+                android:name="android.support.PARENT_ACTIVITY"
+                android:value=".DictionaryActivity"/>
+        </activity>
     </application>
 
 </manifest>

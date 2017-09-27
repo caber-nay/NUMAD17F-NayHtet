@@ -1,4 +1,7 @@
 package edu.neu.madcourse.nayhtet;
+import android.content.Intent;
+import android.media.AudioManager;
+import android.media.ToneGenerator;
 import android.os.Bundle;
 import android.support.v7.app.AppCompatActivity;
 import android.text.Editable;
@@ -52,6 +55,8 @@ public class DictionaryActivity extends AppCompatActivity{
                 if(editable.toString().length() >= minLetters && !listOfWords.contains(editable.toString())){
                     if(dict.contains(editable.toString())){
                         adapter.add(editable.toString());
+                        ToneGenerator toneG = new ToneGenerator(AudioManager.STREAM_ALARM, 100);
+                        toneG.startTone(ToneGenerator.TONE_CDMA_ALERT_CALL_GUARD, 200);
                     }
                 }
             }
@@ -72,5 +77,9 @@ public class DictionaryActivity extends AppCompatActivity{
     public void clear(View view){
         textEntryBox.setText("");   //clears the text entry box
         adapter.clear();    //clears the list
+    }
+    public void acknowledgements(View view){
+        Intent intent = new Intent(this, DictionaryAcknowledgmentsActivity.class);
+        startActivity(intent);
     }
 }
