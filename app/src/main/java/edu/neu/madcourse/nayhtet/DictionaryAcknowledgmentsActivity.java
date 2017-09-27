@@ -16,10 +16,13 @@ public class DictionaryAcknowledgmentsActivity extends AppCompatActivity{
         setTitle("Acknowledgments (Dictionary)");
         TextView textView = (TextView)findViewById(R.id.dictionaryAcknowledgmentsTextView);
         String acknowledgments = new String(
-                "References:\n" +
-                "developer.android.com/reference \n" +
+                "CS5520 Mobile Application Development\n" +
+                        "   In-class Lectures\n   Online course modules\n\n" +
+                        "App Icon (self-designed, Photoshop)\n\n" +
+                "Code References:\n" +
+                " developer.android.com/reference \n" +
                 "   ArrayAdapter\n   TextWatcher\n   BufferedReader\n   InputStream\n" +
-                "www.stackoverflow.com\n   Reading from resource file\n   How to make a beep in Android");
+                " stackoverflow.com\n   How to make a beep in Android\n   Maintaining List Items");
         textView.setText(acknowledgments);
     }
 

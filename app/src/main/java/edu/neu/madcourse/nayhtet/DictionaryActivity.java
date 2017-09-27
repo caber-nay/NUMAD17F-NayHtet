@@ -73,7 +73,6 @@ public class DictionaryActivity extends AppCompatActivity{
             e.printStackTrace();
         }
     }
-
     public void clear(View view){
         textEntryBox.setText("");   //clears the text entry box
         adapter.clear();    //clears the list
@@ -82,4 +81,15 @@ public class DictionaryActivity extends AppCompatActivity{
         Intent intent = new Intent(this, DictionaryAcknowledgmentsActivity.class);
         startActivity(intent);
     }
+    /*@Override
+    public void onSaveInstanceState(Bundle savedInstanceState){
+        super.onSaveInstanceState(savedInstanceState);
+        savedInstanceState.putStringArrayList("WordList",listOfWords);
+    }
+    @Override
+    public void onRestoreInstanceState(Bundle savedInstanceState){
+        super.onRestoreInstanceState(savedInstanceState);
+        listOfWords = savedInstanceState.getStringArrayList("WordList");
+        adapter = new ArrayAdapter<String>(this,android.R.layout.simple_list_item_1,listOfWords);
+    }*/
 }
