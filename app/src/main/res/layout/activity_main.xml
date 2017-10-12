@@ -40,11 +40,13 @@
         android:hint="@string/button_about"
         android:onClick="about"
         android:text="@string/button_about"
-        app:layout_constraintLeft_toLeftOf="@+id/button4"
-        app:layout_constraintRight_toRightOf="@+id/button4"
+        app:layout_constraintLeft_toLeftOf="parent"
+        app:layout_constraintRight_toRightOf="parent"
         android:layout_marginTop="16dp"
         app:layout_constraintTop_toBottomOf="@+id/button3"
-        app:layout_constraintHorizontal_bias="0.0" />
+        app:layout_constraintHorizontal_bias="0.0"
+        android:layout_marginRight="16dp"
+        android:layout_marginLeft="16dp" />
 
     <Button
         android:id="@+id/button3"
@@ -53,11 +55,13 @@
         android:hint="@string/button_error"
         android:onClick="generateError"
         android:text="@string/button_error"
-        app:layout_constraintLeft_toLeftOf="@+id/button2"
-        app:layout_constraintRight_toRightOf="@+id/button2"
+        app:layout_constraintLeft_toLeftOf="parent"
+        app:layout_constraintRight_toRightOf="parent"
         android:layout_marginTop="16dp"
         app:layout_constraintTop_toBottomOf="@+id/editText"
-        app:layout_constraintHorizontal_bias="0.0" />
+        app:layout_constraintHorizontal_bias="0.0"
+        android:layout_marginRight="16dp"
+        android:layout_marginLeft="16dp" />
 
     <Button
         android:id="@+id/button4"
@@ -68,13 +72,15 @@
         android:onClick="dictionary"
         android:text="@string/button_dictionary"
         app:layout_constraintHorizontal_bias="0.0"
-        app:layout_constraintLeft_toLeftOf="@+id/button5"
-        app:layout_constraintRight_toRightOf="@+id/button5"
-        app:layout_constraintTop_toBottomOf="@+id/button2" />
+        app:layout_constraintLeft_toLeftOf="parent"
+        app:layout_constraintRight_toRightOf="parent"
+        app:layout_constraintTop_toBottomOf="@+id/button2"
+        android:layout_marginRight="16dp"
+        android:layout_marginLeft="16dp" />
 
     <Button
         android:id="@+id/button5"
-        android:layout_width="380dp"
+        android:layout_width="0dp"
         android:layout_height="wrap_content"
         android:layout_marginEnd="16dp"
         android:layout_marginLeft="16dp"

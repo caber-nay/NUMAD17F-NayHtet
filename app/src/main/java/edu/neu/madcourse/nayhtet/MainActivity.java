@@ -15,6 +15,7 @@ import android.widget.TextView;
 
 public class MainActivity extends AppCompatActivity {
     public static final String EXTRA_MESSAGE = "edu.neu.madcourse.nayhtet";
+    private static final int READ_PHONE_STATE_PERMISSION = 646;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -40,9 +41,20 @@ public class MainActivity extends AppCompatActivity {
 
     // method for About button
     public void about(View view){
-        String imei = "Permission required to display IMEI";
+        String imei;
         Intent intent = new Intent(this, About.class);
-        startActivity(intent);
+
+        // checking if app has permission to access IMEI
+        if(ContextCompat.checkSelfPermission(this, Manifest.permission.READ_PHONE_STATE) != PackageManager.PERMISSION_GRANTED){
+            // Asks for user's permission
+            ActivityCompat.requestPermissions(this,new String[]{Manifest.permission.READ_PHONE_STATE},
+                    READ_PHONE_STATE_PERMISSION);
+        }else {
+            // Already has permission so get IMEI
+            imei = getIMEI();
+            intent.putExtra(EXTRA_MESSAGE, imei);
+            startActivity(intent);
+        }
     }
 
     public void dictionary(View view){
@@ -57,7 +69,29 @@ public class MainActivity extends AppCompatActivity {
         Intent intent = new Intent(this, ScroggleActivity.class);
         startActivity(intent);
     }
+    // Overriding onRequestPermissionsResult to prompt user for permission
+    @Override
+    public void onRequestPermissionsResult(int requestCode, String permissions[], int[] grantResults) {
+        switch (requestCode) {
+            case READ_PHONE_STATE_PERMISSION: {
+                Intent intent = new Intent(this,About.class);
+                if (grantResults.length > 0 && grantResults[0] == PackageManager.PERMISSION_GRANTED) {
+                    // Permission Granted
+                    intent.putExtra(EXTRA_MESSAGE, getIMEI());
+                    startActivity(intent);
+                } else{
+                    intent.putExtra(EXTRA_MESSAGE,"Permission required to display IMEI");
+                    startActivity(intent);
+                }
+            }
+        }
+    }
 
+    // Method to get IMEI
+    public String getIMEI(){
+        TelephonyManager telephonyManager = (TelephonyManager)getSystemService(Context.TELEPHONY_SERVICE);
+        return telephonyManager.getDeviceId();
+    }
 
     // method for Generate Error button
     public void generateError(View view){
