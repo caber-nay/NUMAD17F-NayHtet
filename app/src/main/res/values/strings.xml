@@ -20,4 +20,5 @@
     <string name="text_versionCode">Version Code</string>
     <string name="text_versionName">Version Name</string>
     <string name="text_IMEI">IMEI</string>
+    <string name="text_coming_soon">Coming Soon</string>
 </resources>

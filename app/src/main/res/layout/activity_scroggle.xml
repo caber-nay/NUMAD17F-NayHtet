@@ -3,8 +3,10 @@
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
+    android:background="@android:color/holo_orange_light"
     android:clipChildren="false"
     tools:context="edu.neu.madcourse.nayhtet.ScroggleActivity">
+
     <fragment android:id="@+id/main_fragment"
         class="edu.neu.madcourse.nayhtet.MainFragment"
         android:layout_width="wrap_content"
