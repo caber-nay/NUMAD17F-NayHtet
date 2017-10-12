@@ -62,6 +62,13 @@ public class MainActivity extends AppCompatActivity {
         startActivity(intent);
     }
 
+    /**
+     * Opens ScroggleActivity
+     */
+    public void scroggle(View view){
+        Intent intent = new Intent(this, ScroggleActivity.class);
+        startActivity(intent);
+    }
     // Overriding onRequestPermissionsResult to prompt user for permission
     @Override
     public void onRequestPermissionsResult(int requestCode, String permissions[], int[] grantResults) {

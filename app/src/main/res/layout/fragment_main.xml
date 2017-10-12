@@ -1,0 +1,46 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="wrap_content"
+    android:layout_height="wrap_content"
+    android:background="@android:color/holo_green_light"
+    android:orientation="vertical"
+    android:padding="@dimen/menu_padding"
+    tools:context="edu.neu.madcourse.nayhtet.ScroggleActivity">
+
+    <TextView
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginBottom="@dimen/menu_space"
+        android:layout_gravity="center"
+        android:text="@string/button_scroggle"
+        android:textAppearance="?android:textAppearanceLarge"
+        android:textColor="@android:color/holo_orange_light"
+        android:textSize="@dimen/menu_text_size" />
+
+    <Button
+        android:id="@+id/continue_button"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_margin="@dimen/menu_button_margin"
+        android:padding="@dimen/menu_button_padding"
+        android:text="@string/button_continue" />
+
+    <Button
+        android:id="@+id/new_button"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_gravity="center"
+        android:layout_margin="@dimen/menu_button_margin"
+        android:padding="@dimen/menu_button_padding"
+        android:text="@string/button_new_game" />
+
+    <Button
+        android:id="@+id/acknowledgements_button"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_gravity="center"
+        android:layout_margin="@dimen/menu_button_margin"
+        android:padding="@dimen/menu_button_padding"
+        android:text="@string/button_acknowledgments" />
+</LinearLayout>
