@@ -15,8 +15,7 @@ public class MainFragment extends Fragment {
     private AlertDialog mDialog;
     public View onCreateView(LayoutInflater inflater, ViewGroup container,
                              Bundle savedInstanceState) {
-        View rootView =
-                inflater.inflate(R.layout.fragment_main, container, false);
+        View rootView = inflater.inflate(R.layout.fragment_main, container, false);
         // Handle buttons here...
         View newButton = rootView.findViewById(R.id.new_button);
         View continueButton = rootView.findViewById(R.id.continue_button);
@@ -57,5 +56,12 @@ public class MainFragment extends Fragment {
             }
         });
         return rootView;
+    }
+    @Override
+    public void onPause() {
+        super.onPause();
+        // Get rid of Acknowledgement box when app is paused
+        if (mDialog != null)
+            mDialog.dismiss();
     }
 }

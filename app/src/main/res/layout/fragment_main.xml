@@ -3,7 +3,7 @@
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="wrap_content"
     android:layout_height="wrap_content"
-    android:background="@android:color/holo_green_light"
+    android:background="@color/menuFragment_color"
     android:elevation="@dimen/elevation_high"
     android:orientation="vertical"
     android:padding="@dimen/menu_padding"
@@ -12,11 +12,11 @@
     <TextView
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:layout_marginBottom="@dimen/menu_space"
         android:layout_gravity="center"
+        android:layout_marginBottom="@dimen/menu_space"
         android:text="@string/button_scroggle"
         android:textAppearance="?android:textAppearanceLarge"
-        android:textColor="@android:color/holo_orange_light"
+        android:textColor="@color/scroggle_color"
         android:textSize="@dimen/menu_text_size" />
 
     <Button

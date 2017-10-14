@@ -3,4 +3,13 @@
     <color name="colorPrimary">#3F51B5</color>
     <color name="colorPrimaryDark">#303F9F</color>
     <color name="colorAccent">#FF4081</color>
+    <color name="scroggle_color">#ffcc33</color>
+    <color name="menuFragment_color">#ff11aa00</color>
+    <color name="field_color">#d5cee0</color>
+    <color name="border_color">#7f7f7f</color>
+    <color name="dark_border_color">#4f4f4f</color>
+    <color name="available_color">#7fbf7f</color>
+    <color name="red_color">#FF3030</color>
+    <color name="gray_color">#aaaaaa</color>
+    <color name="purple_color">#cc00ff</color>
 </resources>

@@ -1,10 +1,4 @@
 <?xml version="1.0" encoding="utf-8"?>
-<FrameLayout
-    xmlns:android="http://schemas.android.com/apk/res/android"
-    xmlns:tools="http://schemas.android.com/tools"
-    android:layout_width="match_parent"
-    android:layout_height="match_parent"
-    tools:context=".ScroggleActivity">
 
     <!--<ImageView-->
         <!--android:layout_width="match_parent"-->
@@ -12,37 +6,27 @@
         <!--android:scaleType="centerCrop"-->
         <!--android:src="@drawable/sandy_beach"/>-->
 
-    <LinearLayout
-        android:layout_width="match_parent"
-        android:layout_height="match_parent"
-        android:background="@android:color/holo_orange_light"
-        android:gravity="center"
-        android:orientation="vertical"
-        android:weightSum="1">
+<LinearLayout
+    xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:background="@android:color/holo_orange_light"
+    android:gravity="center"
+    android:orientation="vertical"
+    android:weightSum="1">
 
-        <!--<fragment-->
-        <!--android:id="@+id/fragment_game"-->
-        <!--class="org.example.tictactoe.GameFragment"-->
-        <!--android:layout_width="wrap_content"-->
-        <!--android:layout_height="wrap_content"-->
-        <!--tools:layout="@layout/fragment_game"/>-->
-        <!--&lt;!&ndash; Control fragment goes here... &ndash;&gt;-->
+    <fragment
+    android:id="@+id/fragment_game"
+    class="edu.neu.madcourse.nayhtet.GameFragment"
+    android:layout_width="wrap_content"
+    android:layout_height="wrap_content"
+    tools:layout="@layout/fragment_game"/>
 
-        <!--<fragment-->
-        <!--android:id="@+id/fragment_game_controls"-->
-        <!--class="org.example.tictactoe.ControlFragment"-->
-        <!--android:layout_width="wrap_content"-->
-        <!--android:layout_height="wrap_content"-->
-        <!--tools:layout="@layout/fragment_control"/>-->
-
-        <TextView
-            android:id="@+id/textView3"
-            android:layout_width="match_parent"
-            android:layout_height="wrap_content"
-            android:layout_weight="0.13"
-            android:text="@string/text_coming_soon"
-            android:textAlignment="center"
-            android:textSize="30sp"
-            android:textStyle="bold|italic" />
-    </LinearLayout>
-</FrameLayout>
+    <!--<fragment-->
+    <!--android:id="@+id/fragment_game_controls"-->
+    <!--class="org.example.tictactoe.ControlFragment"-->
+    <!--android:layout_width="wrap_content"-->
+    <!--android:layout_height="wrap_content"-->
+    <!--tools:layout="@layout/fragment_control"/>-->
+</LinearLayout>
