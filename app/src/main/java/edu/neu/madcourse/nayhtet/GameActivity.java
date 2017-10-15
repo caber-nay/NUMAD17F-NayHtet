@@ -34,7 +34,7 @@ public class GameActivity extends AppCompatActivity {
     }
 
     public void restartGame() {
-        //mGameFragment.restartGame();
+        mGameFragment.restartGame();
     }
     public void reportWinner(final Tile.Owner winner) {
         AlertDialog.Builder builder = new AlertDialog.Builder(this);
