@@ -1,6 +1,9 @@
 package edu.neu.madcourse.nayhtet;
 
+import android.app.Dialog;
+import android.content.DialogInterface;
 import android.os.Bundle;
+import android.support.v7.app.AlertDialog;
 import android.support.v7.app.AppCompatActivity;
 import android.util.Log;
 
@@ -24,7 +27,7 @@ public class GameActivity extends AppCompatActivity {
             String gameData = getPreferences(MODE_PRIVATE)
                     .getString(PREF_RESTORE, null); 
             if (gameData != null) {
-                //mGameFragment.putState(gameData);
+                mGameFragment.putState(gameData);
             }
         }
         Log.d("UT3", "restore = " + restore);
@@ -33,13 +36,29 @@ public class GameActivity extends AppCompatActivity {
     public void restartGame() {
         //mGameFragment.restartGame();
     }
+    public void reportWinner(final Tile.Owner winner) {
+        AlertDialog.Builder builder = new AlertDialog.Builder(this);
+        builder.setMessage(getString(R.string.declare_winner, winner));
+        builder.setCancelable(false);
+        builder.setPositiveButton(R.string.label_ok, new DialogInterface.OnClickListener() {
+                    @Override
+                    public void onClick(DialogInterface dialogInterface, int i) {
+                        finish();
+                    }
+                });
+        final Dialog dialog = builder.create();
+        dialog.show();
+        // Reset the board to the initial position
+        mGameFragment.initGame();
+    }
+
     @Override
     protected void onPause() {
         super.onPause();
-        /*String gameData = mGameFragment.getState();
+        String gameData = mGameFragment.getState();
         getPreferences(MODE_PRIVATE).edit()
                 .putString(PREF_RESTORE, gameData)
                 .commit();
-        Log.d("UT3", "state = " + gameData);*/
+        Log.d("UT3", "state = " + gameData);
     }
 }

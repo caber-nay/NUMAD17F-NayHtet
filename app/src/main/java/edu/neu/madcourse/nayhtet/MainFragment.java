@@ -41,11 +41,11 @@ public class MainFragment extends Fragment {
                 AlertDialog.Builder builder = new AlertDialog.Builder(getActivity());
                 builder.setTitle(R.string.button_acknowledgments);
                 builder.setMessage("Hello Android, 4th Edition \n" +
-                        "Chapter 2 Let's Play A Game \n" +
+                        "Part 2 Let's Play A Game - Chapter 3, 4\n" +
                         "developer.android.com \n"+
                         "Mobile Application Development Course");
                 builder.setCancelable(false);
-                builder.setPositiveButton("Ok",
+                builder.setPositiveButton(R.string.label_ok,
                         new DialogInterface.OnClickListener() {
                             @Override
                             public void onClick(DialogInterface dialogInterface, int i) {

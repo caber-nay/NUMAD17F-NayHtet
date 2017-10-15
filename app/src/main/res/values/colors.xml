@@ -11,5 +11,6 @@
     <color name="available_color">#7fbf7f</color>
     <color name="red_color">#FF3030</color>
     <color name="gray_color">#aaaaaa</color>
+    <color name="green_color">#33cc33</color>
     <color name="purple_color">#cc00ff</color>
 </resources>
