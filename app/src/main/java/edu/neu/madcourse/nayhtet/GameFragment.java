@@ -48,7 +48,6 @@ public class GameFragment extends Fragment{
         updateAllTiles();
         return rootView;
     }
-
     public void initGame() {
 
         Log.d("UT3", "init game");
