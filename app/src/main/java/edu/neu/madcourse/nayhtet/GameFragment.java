@@ -6,9 +6,12 @@ import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
-import android.widget.ImageButton;
+import android.widget.ArrayAdapter;
+import android.widget.Button;
 
+import java.util.ArrayList;
 import java.util.HashSet;
+import java.util.Random;
 import java.util.Set;
 
 /**
@@ -24,10 +27,14 @@ public class GameFragment extends Fragment{
     private Tile mGameBoard = new Tile(this);
     private Tile[] mLargeTiles = new Tile[9];
     private Tile[][] mSmallTiles = new Tile[9][9];
-    private Tile.Owner mPlayer = Tile.Owner.X;
+    private Tile.Owner mPlayer = Tile.Owner.FIRST;
     private Set<Tile> mAvailable = new HashSet<>();
     private int mLastLarge;
     private int mLastSmall;
+    private ArrayList<String> word_list = ScroggleActivity.dict;
+    private ArrayList<Tile> currentWord = new ArrayList<>();
+
+    Random random = new Random();
 
     public void onCreate(Bundle savedInstanceState){
         super.onCreate(savedInstanceState);
@@ -41,7 +48,6 @@ public class GameFragment extends Fragment{
         updateAllTiles();
         return rootView;
     }
-
 
     public void initGame() {
 
@@ -60,57 +66,124 @@ public class GameFragment extends Fragment{
         // If the player moves first, set which spots are available
         mLastSmall = -1;
         mLastLarge = -1;
-        setAvailableFromLastMove(mLastSmall);
+        setAvailableFromLastMove(mLastLarge, mLastSmall);
     }
 
     private void initViews(View rootView) {
-
+        String word;
+        char temp;
         mGameBoard.setView(rootView);
         for (int large = 0; large < 9; large++) {
             View outer = rootView.findViewById(mLargeIds[large]);
+            word = getRandomWord();
             mLargeTiles[large].setView(outer);
             for (int small = 0; small < 9; small++) {
-                ImageButton inner = (ImageButton) outer.findViewById
+                Button inner = (Button) outer.findViewById
                         (mSmallIds[small]);
+                temp = word.charAt(small);
+                inner.setText(String.valueOf(temp));
                 final int fLarge = large;
                 final int fSmall = small;
                 final Tile smallTile = mSmallTiles[large][small];
+                smallTile.setLetter(temp);
                 smallTile.setView(inner);
                 inner.setOnClickListener(new View.OnClickListener() {
                     @Override
                     public void onClick(View view) {
-                        if (isAvailable(smallTile)) {
+                        if (isAvailable(smallTile) || currentWord.contains(smallTile)) {
                             makeMove(fLarge, fSmall);
-                            switchTurns();
+                            /*switchTurns();*/
                         }
                     }
                 });
             }
         }
     }
+    private String getRandomWord(){
+        String word = null;
+        int index = 0;
+        while(word == null){
+            index = random.nextInt(word_list.size());
+            if(word_list.get(index).length() == 9){
+                word = word_list.get(index);
+            }
+        }
+        return word;
+    }
     private void makeMove(int large, int small) {
         mLastLarge = large;
         mLastSmall = small;
         Tile smallTile = mSmallTiles[large][small];
         Tile largeTile = mLargeTiles[large];
-        smallTile.setOwner(mPlayer);
-        setAvailableFromLastMove(small);
-        Tile.Owner oldWinner = largeTile.getOwner();
-        Tile.Owner winner = largeTile.findWinner();
-        if (winner != oldWinner) {
-            largeTile.setOwner(winner);
+        boolean cancel = false;
+        if(currentWord.contains(smallTile)){
+            // remove letters that come after this tile
+            cancel = removeFollowingLetters(smallTile);
         }
-        winner = mGameBoard.findWinner();
-        mGameBoard.setOwner(winner);
+        if(!cancel) {
+            smallTile.setOwner(mPlayer);
+            setAvailableFromLastMove(large, small);
+        }else {
+            if(currentWord.size() == 1) {
+                currentWord.remove(0).setOwner(Tile.Owner.NEITHER);
+                setAllAvailable();
+            }else {
+                currentWord.remove(currentWord.size()-1).setOwner(Tile.Owner.NEITHER);
+                smallTile = currentWord.get(currentWord.size()-1);
+                smallTile.setOwner(mPlayer);
+                for(int i = 0; i < 9; i++){
+                    if(mSmallTiles[large][i] == smallTile){
+                        setAvailableFromLastMove(large,i);
+                    }
+                }
+            }
+        }
         updateAllTiles();
-        if (winner != Tile.Owner.NEITHER) {
-            ((GameActivity)getActivity()).reportWinner(winner);
+    }
+    public boolean removeFollowingLetters(Tile currentTile){
+        int index = currentWord.size() - 1;
+        if(currentWord.get(index) == currentTile) {
+            return true;
+        }else {
+            Tile removed;
+            while (currentWord.get(index) != currentTile) {
+                removed = currentWord.remove(index);
+                removed.setOwner(Tile.Owner.NEITHER);
+                index--;
+            }
+            return false;
         }
     }
-
-    private void switchTurns() {
-        mPlayer = mPlayer == Tile.Owner.X ? Tile.Owner.O : Tile.Owner.X;
+    public void confirmWord() {
+        if (currentWord != null) {
+            String guess = "";
+           for(int i = 0; i < currentWord.size(); i++) {
+                guess = guess + currentWord.get(i).getLetter();
+            }
+            if(word_list.contains(guess)){
+                removeRemainingLetters();
+                currentWord.clear();
+                clearAvailable();
+                setAllAvailable();
+                updateAllTiles();
+            }else{
+                // penalize
+            }
+        }
     }
+    public void removeRemainingLetters(){
+        Tile smallTile;
+        for(int i = 0; i < 9; i ++) {
+            smallTile = mSmallTiles[mLastLarge][i];
+            if(!currentWord.contains(smallTile)){
+                smallTile.setLetter(' ');
+                smallTile.setOwner(Tile.Owner.FIRST);
+            }
+        }
+    }
+   /* private void switchTurns() {
+        mPlayer = mPlayer == Tile.Owner.X ? Tile.Owner.O : Tile.Owner.X;
+    }*/
     public void restartGame() {
         initGame();
         initViews(getView());
@@ -129,14 +202,71 @@ public class GameFragment extends Fragment{
         return mAvailable.contains(tile);
     }
 
-    private void setAvailableFromLastMove(int small) {
+    private void setAvailableFromLastMove(int large, int small) {
         clearAvailable();
-        // Make all the tiles at the destination available
-        if (small != -1) {
-            for (int dest = 0; dest < 9; dest++) {
-                Tile tile = mSmallTiles[small][dest];
-                if (tile.getOwner() == Tile.Owner.NEITHER)
-                    addAvailable(tile);
+        if (large != -1) {
+            switch(small){
+                case 0:
+                    addAvailable(mSmallTiles[large][1]);
+                    addAvailable(mSmallTiles[large][3]);
+                    addAvailable(mSmallTiles[large][4]);
+                    break;
+                case 1:
+                    addAvailable(mSmallTiles[large][0]);
+                    addAvailable(mSmallTiles[large][2]);
+                    addAvailable(mSmallTiles[large][3]);
+                    addAvailable(mSmallTiles[large][4]);
+                    addAvailable(mSmallTiles[large][5]);
+                    break;
+                case 2:
+                    addAvailable(mSmallTiles[large][1]);
+                    addAvailable(mSmallTiles[large][4]);
+                    addAvailable(mSmallTiles[large][5]);
+                    break;
+                case 3:
+                    addAvailable(mSmallTiles[large][0]);
+                    addAvailable(mSmallTiles[large][1]);
+                    addAvailable(mSmallTiles[large][4]);
+                    addAvailable(mSmallTiles[large][6]);
+                    addAvailable(mSmallTiles[large][7]);
+                    break;
+                case 4:
+                    addAvailable(mSmallTiles[large][0]);
+                    addAvailable(mSmallTiles[large][1]);
+                    addAvailable(mSmallTiles[large][2]);
+                    addAvailable(mSmallTiles[large][3]);
+                    addAvailable(mSmallTiles[large][5]);
+                    addAvailable(mSmallTiles[large][6]);
+                    addAvailable(mSmallTiles[large][7]);
+                    addAvailable(mSmallTiles[large][8]);
+                    break;
+                case 5:
+                    addAvailable(mSmallTiles[large][1]);
+                    addAvailable(mSmallTiles[large][2]);
+                    addAvailable(mSmallTiles[large][4]);
+                    addAvailable(mSmallTiles[large][7]);
+                    addAvailable(mSmallTiles[large][8]);
+                    break;
+                case 6:
+                    addAvailable(mSmallTiles[large][3]);
+                    addAvailable(mSmallTiles[large][4]);
+                    addAvailable(mSmallTiles[large][7]);
+                    break;
+                case 7:
+                    addAvailable(mSmallTiles[large][3]);
+                    addAvailable(mSmallTiles[large][4]);
+                    addAvailable(mSmallTiles[large][5]);
+                    addAvailable(mSmallTiles[large][6]);
+                    addAvailable(mSmallTiles[large][8]);
+                    break;
+                case 8:
+                    addAvailable(mSmallTiles[large][4]);
+                    addAvailable(mSmallTiles[large][5]);
+                    addAvailable(mSmallTiles[large][7]);
+                    break;
+            }
+            if(!currentWord.contains(mSmallTiles[large][small])) {
+                currentWord.add(mSmallTiles[large][small]);
             }
         }
         // If there were none available, make all squares available
@@ -155,6 +285,15 @@ public class GameFragment extends Fragment{
         }
     }
 
+    private void updateAllTiles() {
+        mGameBoard.updateDrawableState();
+        for (int large = 0; large < 9; large++) {
+            mLargeTiles[large].updateDrawableState();
+            for (int small = 0; small < 9; small++) {
+                mSmallTiles[large][small].updateDrawableState();
+            }
+        }
+    }
     /**
      * Create a string containing the state of the game
      * @return a string that is the serialized form of the game state
@@ -189,17 +328,7 @@ public class GameFragment extends Fragment{
                 mSmallTiles[large][small].setOwner(owner);
             }
         }
-        setAvailableFromLastMove(mLastSmall);
+        setAvailableFromLastMove(mLastLarge,mLastSmall);    // might be a bug
         updateAllTiles();
-    }
-
-    private void updateAllTiles() {
-        mGameBoard.updateDrawableState();
-        for (int large = 0; large < 9; large++) {
-            mLargeTiles[large].updateDrawableState();
-            for (int small = 0; small < 9; small++) {
-                mSmallTiles[large][small].updateDrawableState();
-            }
-        }
     }
 }

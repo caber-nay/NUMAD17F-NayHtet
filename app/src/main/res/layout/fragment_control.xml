@@ -2,26 +2,50 @@
 <LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:app="http://schemas.android.com/apk/res-auto"
     xmlns:tools="http://schemas.android.com/tools"
-    android:layout_width="wrap_content"
+    android:layout_width="match_parent"
     android:layout_height="wrap_content"
-    android:orientation="horizontal"
+    android:orientation="vertical"
     android:padding="@dimen/control_padding"
     android:weightSum="1"
     tools:context=".GameActivity">
 
-    <ImageButton
-        android:id="@+id/button_restart"
-        android:layout_width="180dp"
-        android:layout_height="180dp"
-        android:adjustViewBounds="false"
-        android:scaleType="fitCenter"
-        app:srcCompat="@drawable/restart" />
+    <Button
+        android:id="@+id/button_confirm"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:text="@string/button_confirm" />
 
-    <ImageButton
-        android:id="@+id/button_main"
-        android:layout_width="180dp"
-        android:layout_height="180dp"
-        android:scaleType="fitCenter"
-        app:srcCompat="@drawable/home" />
+    <LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+        xmlns:app="http://schemas.android.com/apk/res-auto"
+        xmlns:tools="http://schemas.android.com/tools"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:orientation="horizontal"
+        android:padding="@dimen/control_padding"
+        android:weightSum="1">
+
+        <ImageButton
+            android:id="@+id/button_restart"
+            android:layout_width="100dp"
+            android:layout_height="100dp"
+            android:adjustViewBounds="false"
+            android:scaleType="fitCenter"
+            app:srcCompat="@drawable/restart" />
+
+        <ImageButton
+            android:id="@+id/button_main"
+            android:layout_width="100dp"
+            android:layout_height="100dp"
+            android:scaleType="fitCenter"
+            app:srcCompat="@drawable/home" />
+
+        <TextView
+            android:id="@+id/text_timer"
+            android:layout_width="match_parent"
+            android:layout_height="match_parent"
+            android:text="Timer"
+            android:textAlignment="center" />
+
+    </LinearLayout>
 
 </LinearLayout>

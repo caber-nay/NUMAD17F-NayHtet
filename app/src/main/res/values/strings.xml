@@ -9,6 +9,7 @@
     <string name="button_new_game">New Game</string>
     <string name="button_continue">Continue</string>
     <string name="button_word_game">Word Game</string>
+    <string name="button_confirm">Confirm</string>
     <string name="label_restart">Restart</string>
     <string name="label_main_menu">Main Menu</string>
     <string name="declare_winner">%1$s is the winner</string>

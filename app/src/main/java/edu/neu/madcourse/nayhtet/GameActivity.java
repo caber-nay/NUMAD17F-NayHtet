@@ -51,7 +51,9 @@ public class GameActivity extends AppCompatActivity {
         // Reset the board to the initial position
         mGameFragment.initGame();
     }
-
+    public void confirmWord(){
+        mGameFragment.confirmWord();
+    }
     @Override
     protected void onPause() {
         super.onPause();

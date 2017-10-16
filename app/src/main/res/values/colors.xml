@@ -8,7 +8,9 @@
     <color name="field_color">#d5cee0</color>
     <color name="border_color">#7f7f7f</color>
     <color name="dark_border_color">#4f4f4f</color>
-    <color name="available_color">#7fbf7f</color>
+    <color name="available_color">#aaaa33</color>
+    <color name="first_color">#ffcc33</color>
+    <color name="second_color">#ccff33</color>
     <color name="red_color">#FF3030</color>
     <color name="gray_color">#aaaaaa</color>
     <color name="green_color">#33cc33</color>

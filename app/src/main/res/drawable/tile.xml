@@ -6,4 +6,10 @@
     <item
         android:drawable="@drawable/tile_available"
         android:maxLevel="1" />
+    <item
+        android:drawable="@drawable/tile_first"
+        android:maxLevel="2" />
+    <item
+        android:drawable="@drawable/tile_second"
+        android:maxLevel="3" />
 </level-list>

@@ -17,6 +17,7 @@ public class ControlFragment extends Fragment {
                 inflater.inflate(R.layout.fragment_control, container, false);
         View main = rootView.findViewById(R.id.button_main);
         View restart = rootView.findViewById(R.id.button_restart);
+        View confirm = rootView.findViewById(R.id.button_confirm);
 
         main.setOnClickListener(new View.OnClickListener() {
             @Override
@@ -28,6 +29,12 @@ public class ControlFragment extends Fragment {
             @Override
             public void onClick(View view) {
                 ((GameActivity) getActivity()).restartGame();
+            }
+        });
+        confirm.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View view){
+                ((GameActivity) getActivity()).confirmWord();
             }
         });
         return rootView;

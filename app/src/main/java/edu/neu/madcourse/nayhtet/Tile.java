@@ -2,7 +2,7 @@ package edu.neu.madcourse.nayhtet;
 
 import android.graphics.drawable.Drawable;
 import android.view.View;
-import android.widget.ImageButton;
+import android.widget.Button;
 
 /**
  * Created by Nay Htet.
@@ -11,18 +11,21 @@ import android.widget.ImageButton;
 public class Tile {
 
     public enum Owner{
-        X, O, NEITHER, BOTH
+        FIRST, SECOND, NEITHER //, BOTH
     }
-    private static final int LEVEL_X = 0;
-    private static final int LEVEL_O = 1; // letter O
-    private static final int LEVEL_BLANK = 2;
-    private static final int LEVEL_AVAILABLE = 3;
-    private static final int LEVEL_TIE = 3;
+
+    private static final int LEVEL_BLANK = 0;
+    private static final int LEVEL_AVAILABLE = 1;
+    private static final int LEVEL_FIRST = 2;
+    private static final int LEVEL_SECOND =3;
+    //private static final int LEVEL_TIE = 2;
+    private static final int top = 1;
+    private static final int bottom = 3;
 
     private final GameFragment mGame;
     private View mView;
     private Owner mOwner = Owner.NEITHER;
-    private Character letter;
+    private char letter;
     private Tile[] subTiles;
 
     public Tile(GameFragment game) {
@@ -46,6 +49,12 @@ public class Tile {
     public void setOwner(Owner owner){
         mOwner = owner;
     }
+    public void setLetter(char letter){
+        this.letter = letter;
+    }
+    public char getLetter(){
+        return letter;
+    }
 
     public void updateDrawableState() {
         if (mView == null) return;
@@ -53,24 +62,25 @@ public class Tile {
         if (mView.getBackground() != null) {
             mView.getBackground().setLevel(level);
         }
-        if (mView instanceof ImageButton) {
-            Drawable drawable = ((ImageButton) mView).getDrawable();
-            drawable.setLevel(level);
+        if (mView instanceof Button) {
+            ((Button)mView).setText(String.valueOf(letter));
+            /*Drawable drawable = ((Button) mView).getCompoundDrawables()[top];
+            drawable.setLevel(level);*/
         }
     }
 
     private int getLevel() {
         int level = LEVEL_BLANK;
         switch (mOwner) {
-            case X:
-                level = LEVEL_X;
+            case FIRST:
+                level = LEVEL_FIRST;
                 break;
-            case O: // letter O
+            /*case SECOND: // letter O
                 level = LEVEL_O;
                 break;
             case BOTH:
                 level = LEVEL_TIE;
-                break;
+                break;*/
             case NEITHER:
                 level = mGame.isAvailable(this) ? LEVEL_AVAILABLE : LEVEL_BLANK;
                 break;
@@ -78,7 +88,7 @@ public class Tile {
         return level;
     }
 
-    public Owner findWinner() {
+    /*public Owner findWinner() {
         // If owner already calculated, return it
         if (getOwner() != Owner.NEITHER)
             return getOwner();
@@ -145,5 +155,5 @@ public class Tile {
         }
         totalX[capturedX]++;
         totalO[capturedO]++;
-    }
+    }*/
 }
