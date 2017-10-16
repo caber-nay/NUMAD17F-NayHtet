@@ -7,6 +7,8 @@ import android.support.v7.app.AlertDialog;
 import android.support.v7.app.AppCompatActivity;
 import android.util.Log;
 
+import java.util.ResourceBundle;
+
 /**
  * Created by Nay Htet.
  */
@@ -15,6 +17,7 @@ public class GameActivity extends AppCompatActivity {
     public static final String KEY_RESTORE = "key_restore";
     public static final String PREF_RESTORE = "pref_restore";
     private GameFragment mGameFragment;
+    private ControlFragment mControlFragment;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -22,6 +25,10 @@ public class GameActivity extends AppCompatActivity {
         setContentView(R.layout.activity_game);
         // Restore game here...
         mGameFragment = (GameFragment) getFragmentManager().findFragmentById(R.id.fragment_game);
+        mControlFragment = (ControlFragment) getFragmentManager().findFragmentById(R.id.fragment_game_controls);
+        mGameFragment.setScoreView(mControlFragment.getScore());
+        mControlFragment.setGameActivity(this);
+
         boolean restore = getIntent().getBooleanExtra(KEY_RESTORE, false);
         if (restore) {
             String gameData = getPreferences(MODE_PRIVATE)
@@ -30,7 +37,17 @@ public class GameActivity extends AppCompatActivity {
                 mGameFragment.putState(gameData);
             }
         }
-        Log.d("UT3", "restore = " + restore);
+        mControlFragment.startPhaseOneTimer();
+    }
+    @Override
+    protected void onResume() {
+        super.onResume();
+        mControlFragment.startPhaseOneTimer();
+    }
+
+    public void startPhaseTwo(){
+        mControlFragment.startPhaseTwoTimer();
+        mGameFragment.enterPhaseTwo();
     }
 
     public void restartGame() {

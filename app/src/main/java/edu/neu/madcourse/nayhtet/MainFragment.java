@@ -18,7 +18,7 @@ public class MainFragment extends Fragment {
         View rootView = inflater.inflate(R.layout.fragment_main, container, false);
         // Handle buttons here...
         View newButton = rootView.findViewById(R.id.new_button);
-        View continueButton = rootView.findViewById(R.id.continue_button);
+        //View continueButton = rootView.findViewById(R.id.continue_button);
         View acknowledgementButton = rootView.findViewById(R.id.acknowledgements_button);
         newButton.setOnClickListener(new View.OnClickListener() {
             @Override
@@ -27,14 +27,14 @@ public class MainFragment extends Fragment {
                 getActivity().startActivity(intent);
             }
         });
-        continueButton.setOnClickListener(new View.OnClickListener() {
+        /*continueButton.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
                 Intent intent = new Intent(getActivity(), GameActivity.class);
                 intent.putExtra(GameActivity.KEY_RESTORE, true);
                 getActivity().startActivity(intent);
             }
-        });
+        });*/
         acknowledgementButton.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {

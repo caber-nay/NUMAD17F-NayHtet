@@ -13,6 +13,6 @@
    <stroke
       android:width="@dimen/stroke_width"
       android:color="@color/border_color"/>
-   <solid android:color="@color/field_color"/>
+   <solid android:color="@color/scroggle_color"/>
    <corners android:radius="@dimen/corner_radius"/>
 </shape>

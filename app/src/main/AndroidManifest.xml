@@ -60,7 +60,8 @@
         </activity>
         <activity android:name=".GameActivity"
             android:parentActivityName=".ScroggleActivity"
-            android:label="@string/button_scroggle">
+            android:label="@string/button_scroggle"
+            android:screenOrientation="portrait">
             <meta-data
                 android:name="android.support.PARENT_ACTIVITY"
                 android:value=".GameActivity"/>

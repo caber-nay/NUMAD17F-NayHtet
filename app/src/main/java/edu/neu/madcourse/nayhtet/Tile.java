@@ -1,6 +1,5 @@
 package edu.neu.madcourse.nayhtet;
 
-import android.graphics.drawable.Drawable;
 import android.view.View;
 import android.widget.Button;
 
@@ -11,14 +10,14 @@ import android.widget.Button;
 public class Tile {
 
     public enum Owner{
-        FIRST, SECOND, NEITHER //, BOTH
+        FIRST, SECOND, NEITHER, SELECTED, OUT
     }
 
     private static final int LEVEL_BLANK = 0;
     private static final int LEVEL_AVAILABLE = 1;
     private static final int LEVEL_FIRST = 2;
     private static final int LEVEL_SECOND =3;
-    //private static final int LEVEL_TIE = 2;
+    private static final int LEVEL_SELECTED = 4;
     private static final int top = 1;
     private static final int bottom = 3;
 
@@ -77,12 +76,15 @@ public class Tile {
                 break;
             /*case SECOND: // letter O
                 level = LEVEL_O;
-                break;
-            case BOTH:
-                level = LEVEL_TIE;
                 break;*/
+            case SELECTED:
+                level = LEVEL_SELECTED;
+                break;
             case NEITHER:
                 level = mGame.isAvailable(this) ? LEVEL_AVAILABLE : LEVEL_BLANK;
+                break;
+            case OUT:
+                level = LEVEL_BLANK;
                 break;
         }
         return level;

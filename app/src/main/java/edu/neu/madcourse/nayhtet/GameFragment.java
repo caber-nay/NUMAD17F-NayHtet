@@ -6,8 +6,10 @@ import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
-import android.widget.ArrayAdapter;
 import android.widget.Button;
+import android.widget.TextView;
+
+import org.w3c.dom.Text;
 
 import java.util.ArrayList;
 import java.util.HashSet;
@@ -27,12 +29,15 @@ public class GameFragment extends Fragment{
     private Tile mGameBoard = new Tile(this);
     private Tile[] mLargeTiles = new Tile[9];
     private Tile[][] mSmallTiles = new Tile[9][9];
-    private Tile.Owner mPlayer = Tile.Owner.FIRST;
+    private Tile.Owner mPlayer = Tile.Owner.SELECTED;
     private Set<Tile> mAvailable = new HashSet<>();
     private int mLastLarge;
     private int mLastSmall;
     private ArrayList<String> word_list = ScroggleActivity.dict;
     private ArrayList<Tile> currentWord = new ArrayList<>();
+    private TextView scoreView;
+    private int score = 0;
+    private boolean phase2 = false;
 
     Random random = new Random();
 
@@ -52,7 +57,6 @@ public class GameFragment extends Fragment{
 
         Log.d("UT3", "init game");
         mGameBoard = new Tile(this);
-
         // Create all the tiles
         for (int large = 0; large < 9; large++) {
             mLargeTiles[large] = new Tile(this);
@@ -77,9 +81,9 @@ public class GameFragment extends Fragment{
             word = getRandomWord();
             mLargeTiles[large].setView(outer);
             for (int small = 0; small < 9; small++) {
-                Button inner = (Button) outer.findViewById
+                Button inner = outer.findViewById
                         (mSmallIds[small]);
-                temp = word.charAt(small);
+                temp = word.charAt(8-small);
                 inner.setText(String.valueOf(temp));
                 final int fLarge = large;
                 final int fSmall = small;
@@ -89,6 +93,7 @@ public class GameFragment extends Fragment{
                 inner.setOnClickListener(new View.OnClickListener() {
                     @Override
                     public void onClick(View view) {
+                        Log.d("UT3",String.valueOf(phase2));
                         if (isAvailable(smallTile) || currentWord.contains(smallTile)) {
                             makeMove(fLarge, fSmall);
                             /*switchTurns();*/
@@ -100,7 +105,7 @@ public class GameFragment extends Fragment{
     }
     private String getRandomWord(){
         String word = null;
-        int index = 0;
+        int index;
         while(word == null){
             index = random.nextInt(word_list.size());
             if(word_list.get(index).length() == 9){
@@ -108,6 +113,25 @@ public class GameFragment extends Fragment{
             }
         }
         return word;
+    }
+    public void enterPhaseTwo(){
+        phase2 = true;
+        currentWord.clear();
+        Tile smallTile;
+        for(int large = 0; large < 9; large++){
+            for(int small = 0; small < 9; small++){
+                smallTile = mSmallTiles[large][small];
+                if(smallTile.getOwner() != Tile.Owner.FIRST){
+                    smallTile.setOwner(Tile.Owner.OUT);
+                    smallTile.setLetter(' ');
+                    smallTile.updateDrawableState();
+                }else{
+                    smallTile.setOwner(Tile.Owner.NEITHER);
+                    addAvailable(smallTile);
+                }
+            }
+        }
+        updateAllTiles();
     }
     private void makeMove(int large, int small) {
         mLastLarge = large;
@@ -121,8 +145,12 @@ public class GameFragment extends Fragment{
         }
         if(!cancel) {
             smallTile.setOwner(mPlayer);
-            setAvailableFromLastMove(large, small);
-        }else {
+            if(phase2) {
+                setAvailablePhase2(large,small);
+            } else {
+                setAvailableFromLastMove(large, small);
+            }
+        }else { // Handles clicking an already selected letter
             if(currentWord.size() == 1) {
                 currentWord.remove(0).setOwner(Tile.Owner.NEITHER);
                 setAllAvailable();
@@ -130,14 +158,42 @@ public class GameFragment extends Fragment{
                 currentWord.remove(currentWord.size()-1).setOwner(Tile.Owner.NEITHER);
                 smallTile = currentWord.get(currentWord.size()-1);
                 smallTile.setOwner(mPlayer);
-                for(int i = 0; i < 9; i++){
-                    if(mSmallTiles[large][i] == smallTile){
-                        setAvailableFromLastMove(large,i);
+                if(phase2) {
+                    handleSelectedPhase2(smallTile);
+                } else {
+                    for (int i = 0; i < 9; i++) {
+                        if (mSmallTiles[large][i] == smallTile) {
+                            setAvailableFromLastMove(large, i);
+                        }
                     }
                 }
             }
         }
         updateAllTiles();
+    }
+    private void setAvailablePhase2(int large, int small) {
+        clearAvailable();
+        Tile smallTile = mSmallTiles[large][small];
+        smallTile.setOwner(Tile.Owner.SELECTED);
+        for (int i = 0; i < 9; i++) {
+            for (int j = 0; j < 9; j++) {
+                if (i != large && mSmallTiles[i][j].getOwner() == Tile.Owner.NEITHER) {
+                    addAvailable(mSmallTiles[i][j]);
+                }
+            }
+        }
+        if(!currentWord.contains(mSmallTiles[large][small])) {
+            currentWord.add(mSmallTiles[large][small]);
+        }
+    }
+    private void handleSelectedPhase2(Tile smallTile){
+        for(int large = 0; large < 9; large++) {
+            for (int i = 0; i < 9; i++) {
+                if (mSmallTiles[large][i] == smallTile) {
+                    setAvailablePhase2(large,i);
+                }
+            }
+        }
     }
     public boolean removeFollowingLetters(Tile currentTile){
         int index = currentWord.size() - 1;
@@ -161,42 +217,52 @@ public class GameFragment extends Fragment{
             }
             if(word_list.contains(guess)){
                 removeRemainingLetters();
+                for(int i = 0; i < currentWord.size();i++){
+                    currentWord.get(i).setOwner(Tile.Owner.FIRST);
+                }
                 currentWord.clear();
                 clearAvailable();
+                updateScore(guess);
                 setAllAvailable();
                 updateAllTiles();
             }else{
-                // penalize
+                score = score - 10;
+                scoreView.setText("Score: " + score);
             }
         }
     }
     public void removeRemainingLetters(){
-        Tile smallTile;
-        for(int i = 0; i < 9; i ++) {
-            smallTile = mSmallTiles[mLastLarge][i];
-            if(!currentWord.contains(smallTile)){
-                smallTile.setLetter(' ');
-                smallTile.setOwner(Tile.Owner.FIRST);
+        if(!phase2) {
+            Tile smallTile;
+            for (int i = 0; i < 9; i++) {
+                smallTile = mSmallTiles[mLastLarge][i];
+                if (!currentWord.contains(smallTile)) {
+                    smallTile.setLetter(' ');
+                    smallTile.setOwner(Tile.Owner.OUT);
+                }
             }
         }
     }
-   /* private void switchTurns() {
-        mPlayer = mPlayer == Tile.Owner.X ? Tile.Owner.O : Tile.Owner.X;
-    }*/
+    private void updateScore(String word){
+        if(word.length() == 9){
+            score = score + 150;
+            scoreView.setText("Score: " + score);
+        } else{
+            score = score + word.length() * 10;
+            scoreView.setText("Score: " + score);
+        }
+    }
     public void restartGame() {
         initGame();
         initViews(getView());
         updateAllTiles();
     }
-
     private void clearAvailable() {
         mAvailable.clear();
     }
-
     private void addAvailable(Tile tile) {
         mAvailable.add(tile);
     }
-
     public boolean isAvailable(Tile tile) {
         return mAvailable.contains(tile);
     }
@@ -283,7 +349,6 @@ public class GameFragment extends Fragment{
             }
         }
     }
-
     private void updateAllTiles() {
         mGameBoard.updateDrawableState();
         for (int large = 0; large < 9; large++) {
@@ -311,7 +376,6 @@ public class GameFragment extends Fragment{
         }
         return builder.toString();
     }
-
     /**
      * Restore the state of the game from the serialized string parameter
      * @param gameData serialized form of the state of the game
@@ -329,5 +393,9 @@ public class GameFragment extends Fragment{
         }
         setAvailableFromLastMove(mLastLarge,mLastSmall);    // might be a bug
         updateAllTiles();
+    }
+
+    public void setScoreView(View scoreView){
+        this.scoreView = (TextView)scoreView;
     }
 }

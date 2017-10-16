@@ -1,6 +1,6 @@
 <?xml version="1.0" encoding="utf-8"?>
 <resources>
-    <color name="colorPrimary">#3F51B5</color>
+    <color name="colorPrimary">#4961e6</color>
     <color name="colorPrimaryDark">#303F9F</color>
     <color name="colorAccent">#FF4081</color>
     <color name="scroggle_color">#ffcc33</color>
@@ -11,7 +11,8 @@
     <color name="available_color">#aaaa33</color>
     <color name="first_color">#ffcc33</color>
     <color name="second_color">#ccff33</color>
-    <color name="red_color">#FF3030</color>
+    <color name="selected_color">#33cc33</color>
+    <color name="red_color">#ff3030</color>
     <color name="gray_color">#aaaaaa</color>
     <color name="green_color">#33cc33</color>
     <color name="purple_color">#cc00ff</color>

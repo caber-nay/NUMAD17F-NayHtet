@@ -4,7 +4,7 @@
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
-        tools:context=".GameActivity">
+    tools:context=".GameActivity">
 
     <ImageView
         android:layout_width="match_parent"
@@ -21,16 +21,18 @@
         android:orientation="vertical"
         android:weightSum="1">
 
-        <fragment android:id="@+id/fragment_game"
-        class="edu.neu.madcourse.nayhtet.GameFragment"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        tools:layout="@layout/fragment_game"/>
+        <fragment
+            android:id="@+id/fragment_game"
+            class="edu.neu.madcourse.nayhtet.GameFragment"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            tools:layout="@layout/fragment_game" />
 
-        <fragment android:id="@+id/fragment_game_controls"
-        class="edu.neu.madcourse.nayhtet.ControlFragment"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        tools:layout="@layout/fragment_control"/>
+        <fragment
+            android:id="@+id/fragment_game_controls"
+            class="edu.neu.madcourse.nayhtet.ControlFragment"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            tools:layout="@layout/fragment_control" />
     </LinearLayout>
 </FrameLayout>

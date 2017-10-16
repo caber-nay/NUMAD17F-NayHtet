@@ -12,4 +12,7 @@
     <item
         android:drawable="@drawable/tile_second"
         android:maxLevel="3" />
+    <item
+        android:drawable="@drawable/tile_selected"
+        android:maxLevel="4" />
 </level-list>

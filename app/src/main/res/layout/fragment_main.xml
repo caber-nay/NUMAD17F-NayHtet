@@ -18,14 +18,14 @@
         android:textAppearance="?android:textAppearanceLarge"
         android:textColor="@color/scroggle_color"
         android:textSize="@dimen/menu_text_size" />
-
+<!--
     <Button
         android:id="@+id/continue_button"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:layout_margin="@dimen/menu_button_margin"
         android:padding="@dimen/menu_button_padding"
-        android:text="@string/button_continue" />
+        android:text="@string/button_continue" />-->
 
     <Button
         android:id="@+id/new_button"
