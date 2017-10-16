@@ -266,7 +266,6 @@ public class GameFragment extends Fragment{
     public boolean isAvailable(Tile tile) {
         return mAvailable.contains(tile);
     }
-
     private void setAvailableFromLastMove(int large, int small) {
         clearAvailable();
         if (large != -1) {
@@ -339,7 +338,6 @@ public class GameFragment extends Fragment{
             setAllAvailable();
         }
     }
-
     private void setAllAvailable() {
         for (int large = 0; large < 9; large++) {
             for (int small = 0; small < 9; small++) {
