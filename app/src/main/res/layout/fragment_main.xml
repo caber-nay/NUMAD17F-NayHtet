@@ -37,6 +37,12 @@
         android:text="@string/button_new_game" />
 
     <Button
+        android:id="@+id/leaderboard_button"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:text="@string/label_leaderboard" />
+
+    <Button
         android:id="@+id/acknowledgements_button"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
@@ -44,4 +50,5 @@
         android:layout_margin="@dimen/menu_button_margin"
         android:padding="@dimen/menu_button_padding"
         android:text="@string/button_acknowledgments" />
+
 </LinearLayout>

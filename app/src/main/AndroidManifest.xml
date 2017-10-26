@@ -66,6 +66,14 @@
                 android:name="android.support.PARENT_ACTIVITY"
                 android:value=".GameActivity"/>
         </activity>
+        <activity android:name=".LeaderBoardActivity"
+            android:parentActivityName=".ScroggleActivity"
+            android:label="@string/label_leaderboard"
+            android:screenOrientation="portrait">
+            <meta-data
+                android:name="android.support.PARENT_ACTIVITY"
+                android:value=".LeaderBoardActivity"/>
+        </activity>
     </application>
 
 </manifest>

@@ -15,6 +15,7 @@
     <string name="declare_winner">%1$s is the winner</string>
     <string name="label_ok">OK</string>
     <string name="times_up">Time\'s Up!</string>
+    <string name="label_leaderboard">Leaderboard</string>
 
     <string name="title_dictionary">Test Dictionary</string>
     <string name="edit_dictionary">Find a word</string>

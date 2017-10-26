@@ -22,6 +22,7 @@ public class MainFragment extends Fragment {
         View newButton = rootView.findViewById(R.id.new_button);
         View continueButton = rootView.findViewById(R.id.continue_button);
         ((Button)continueButton).setText("Tutorial");
+        View leaderboardButton = rootView.findViewById(R.id.leaderboard_button);
         View acknowledgementButton = rootView.findViewById(R.id.acknowledgements_button);
         newButton.setOnClickListener(new View.OnClickListener() {
             @Override
@@ -56,6 +57,13 @@ public class MainFragment extends Fragment {
                             }
                         });
                 mDialog = builder.show();
+            }
+        });
+        leaderboardButton.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View view) {
+                Intent intent = new Intent(getActivity(), LeaderBoardActivity.class);
+                getActivity().startActivity(intent);
             }
         });
         acknowledgementButton.setOnClickListener(new View.OnClickListener() {
