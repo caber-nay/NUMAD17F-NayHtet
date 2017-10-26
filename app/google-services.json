@@ -1,0 +1,42 @@
+{
+  "project_info": {
+    "project_number": "311220473559",
+    "firebase_url": "https://numad17f-nayhtet.firebaseio.com",
+    "project_id": "numad17f-nayhtet",
+    "storage_bucket": "numad17f-nayhtet.appspot.com"
+  },
+  "client": [
+    {
+      "client_info": {
+        "mobilesdk_app_id": "1:311220473559:android:b15ee88c7913c78e",
+        "android_client_info": {
+          "package_name": "edu.neu.madcourse.nayhtet"
+        }
+      },
+      "oauth_client": [
+        {
+          "client_id": "311220473559-fq01i7taqp38go9ujgjlsagndk7icslk.apps.googleusercontent.com",
+          "client_type": 3
+        }
+      ],
+      "api_key": [
+        {
+          "current_key": "AIzaSyCi1_7UpNF_d6fZejUK2VnslDoE680ug7Y"
+        }
+      ],
+      "services": {
+        "analytics_service": {
+          "status": 1
+        },
+        "appinvite_service": {
+          "status": 1,
+          "other_platform_oauth_client": []
+        },
+        "ads_service": {
+          "status": 2
+        }
+      }
+    }
+  ],
+  "configuration_version": "1"
+}
