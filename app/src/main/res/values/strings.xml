@@ -16,6 +16,10 @@
     <string name="label_ok">OK</string>
     <string name="times_up">Time\'s Up!</string>
     <string name="label_leaderboard">Leaderboard</string>
+    <string name="label_username">Username</string>
+    <string name="label_score">Score</string>
+    <string name="label_bestWord">Best Word</string>
+    <string name="label_time">Date/Time</string>
 
     <string name="title_dictionary">Test Dictionary</string>
     <string name="edit_dictionary">Find a word</string>

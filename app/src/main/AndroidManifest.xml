@@ -66,6 +66,11 @@
                 android:name="android.support.PARENT_ACTIVITY"
                 android:value=".GameActivity"/>
         </activity>
+        <service android:name=".WordGameMessagingService">
+            <intent-filter>
+                <action android:name="com.google.firebase.MESSAGING_EVENT"/>
+            </intent-filter>
+        </service>
         <activity android:name=".LeaderBoardActivity"
             android:parentActivityName=".ScroggleActivity"
             android:label="@string/label_leaderboard"

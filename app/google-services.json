@@ -15,6 +15,14 @@
       },
       "oauth_client": [
         {
+          "client_id": "311220473559-bpbbcrdvmm9v831djddfrlqsd6h4sn62.apps.googleusercontent.com",
+          "client_type": 1,
+          "android_info": {
+            "package_name": "edu.neu.madcourse.nayhtet",
+            "certificate_hash": "f50eb1c2d34bdc13d58a4a47a4e86142bbad0163"
+          }
+        },
+        {
           "client_id": "311220473559-fq01i7taqp38go9ujgjlsagndk7icslk.apps.googleusercontent.com",
           "client_type": 3
         }
@@ -29,8 +37,13 @@
           "status": 1
         },
         "appinvite_service": {
-          "status": 1,
-          "other_platform_oauth_client": []
+          "status": 2,
+          "other_platform_oauth_client": [
+            {
+              "client_id": "311220473559-fq01i7taqp38go9ujgjlsagndk7icslk.apps.googleusercontent.com",
+              "client_type": 3
+            }
+          ]
         },
         "ads_service": {
           "status": 2
