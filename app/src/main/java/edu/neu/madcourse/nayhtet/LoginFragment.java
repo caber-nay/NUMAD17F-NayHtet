@@ -32,12 +32,13 @@ public class LoginFragment extends Fragment {
             public void onClick(View view) {
                 AlertDialog.Builder builder = new AlertDialog.Builder(getActivity());
                 builder.setTitle("Hello, " + usernameText.getText() + "!");
-                builder.setMessage("Your score is submitted!");
+                builder.setMessage("Welcome to Scroggle.");
                 builder.setCancelable(false);
-                builder.setPositiveButton("OK", new DialogInterface.OnClickListener() {
+                builder.setPositiveButton(R.string.label_ok, new DialogInterface.OnClickListener() {
                     @Override
                     public void onClick(DialogInterface dialogInterface, int i) {
-                        mActivity.finish();
+                        ((ScroggleActivity)mActivity).username = usernameText.getText().toString();
+                        ((ScroggleActivity)mActivity).cancelLogin();
                     }
                 });
                 mDialog = builder.show();

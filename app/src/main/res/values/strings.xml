@@ -22,6 +22,8 @@
     <string name="label_time">Date/Time</string>
     <string name="button_submit">Submit</string>
     <string name="button_cancel">Cancel</string>
+    <string name="label_no">No</string>
+    <string name="label_yes">Yes</string>
 
     <string name="title_dictionary">Test Dictionary</string>
     <string name="edit_dictionary">Find a word</string>

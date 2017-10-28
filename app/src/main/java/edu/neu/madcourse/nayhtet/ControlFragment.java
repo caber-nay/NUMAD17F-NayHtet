@@ -11,11 +11,20 @@ import android.content.DialogInterface;
 import android.content.Intent;
 import android.os.AsyncTask;
 import android.os.Bundle;
+import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.TextView;
 import android.widget.Toast;
+
+import com.google.firebase.database.ChildEventListener;
+import com.google.firebase.database.DataSnapshot;
+import com.google.firebase.database.DatabaseError;
+import com.google.firebase.database.DatabaseReference;
+import com.google.firebase.database.FirebaseDatabase;
+
+import java.util.List;
 
 public class ControlFragment extends Fragment {
     private View rootView;
@@ -25,6 +34,8 @@ public class ControlFragment extends Fragment {
     private boolean pauseTimer = false;
     private GameActivity mGameActivity;
     private MyTimer myTimer;
+    private int index;
+    private List<User> users;
 
     @Override
     public View onCreateView(LayoutInflater inflater, ViewGroup container,
@@ -112,20 +123,22 @@ public class ControlFragment extends Fragment {
         AlertDialog.Builder builder = new AlertDialog.Builder(getActivity());
         builder.setTitle(R.string.times_up);
         if (phaseTwo) {
-            builder.setMessage("Your " + ((TextView) score).getText() + "\n Thank you for playing Scroggle.");
+            builder.setMessage("Your " + ((TextView) score).getText() + "\n Submit Score?");
             builder.setCancelable(false);
-            builder.setPositiveButton(R.string.label_ok,
+
+            builder.setNegativeButton(R.string.label_no, new DialogInterface.OnClickListener() {
+                @Override
+                public void onClick(DialogInterface dialogInterface, int i) {
+                    mGameActivity.finish();
+                }
+            });
+            builder.setPositiveButton(R.string.label_yes,
                     new DialogInterface.OnClickListener() {
                         @Override
                         public void onClick(DialogInterface dialogInterface, int i) {
-                            FragmentManager fragmentManager = getFragmentManager();
-                            FragmentTransaction fragmentTransaction = fragmentManager.beginTransaction();
-
-                            LoginFragment loginFragment = new LoginFragment();
-                            loginFragment.setActivity(mGameActivity);
-                            fragmentTransaction.replace(android.R.id.content, loginFragment);
-                            fragmentTransaction.commit();
-
+                            // add to score board
+                            // check if made to leaderboard
+                            checkIfScoreMakesLeaderboard();
                             //mGameActivity.finish();
                         }
                     });
@@ -141,6 +154,43 @@ public class ControlFragment extends Fragment {
                         }
                     });
             dialog = builder.show();
+        }
+    }
+
+    private void checkIfScoreMakesLeaderboard() {
+        DatabaseReference mDatabase = FirebaseDatabase.getInstance().getReference();
+        //index = 0;
+        mDatabase.child("leaders").addChildEventListener(
+                new ChildEventListener() {
+                    @Override
+                    public void onChildAdded(DataSnapshot dataSnapshot, String s) {
+                        users.add(dataSnapshot.getValue(User.class));
+                    }
+
+                    @Override
+                    public void onChildChanged(DataSnapshot dataSnapshot, String s) {
+                        User user = dataSnapshot.getValue(User.class);
+                    }
+
+                    @Override
+                    public void onChildRemoved(DataSnapshot dataSnapshot) {
+
+                    }
+
+                    @Override
+                    public void onChildMoved(DataSnapshot dataSnapshot, String s) {
+
+                    }
+
+                    @Override
+                    public void onCancelled(DatabaseError error) {
+
+                    }
+                });
+        //Log.d("UTC","These are the scores I want");
+        System.out.println("These are the scores");
+        for(int i = 0; i < users.size(); i++) {
+            System.out.println(users.get(i));
         }
     }
 

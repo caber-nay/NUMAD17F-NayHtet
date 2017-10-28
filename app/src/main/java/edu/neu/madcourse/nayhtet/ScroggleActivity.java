@@ -16,12 +16,13 @@ import java.util.ArrayList;
  * Created by Nay Htet
  */
 public class ScroggleActivity extends AppCompatActivity{
-
+    static String username;
     static ArrayList<String> dict = new ArrayList<>();
     private String read;
     private InputStream inputStream;
     private BufferedReader bufferedReader;
     private LoginFragment loginFragment;
+    static boolean loginCancelled = false;
     FragmentTransaction fragmentTransaction;
 
     @Override
@@ -29,12 +30,9 @@ public class ScroggleActivity extends AppCompatActivity{
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_scroggle);
 
-        fragmentTransaction = getFragmentManager().beginTransaction();
-        loginFragment = new LoginFragment();
-        loginFragment.setActivity(this);
-        fragmentTransaction.replace(android.R.id.content, loginFragment);
-        fragmentTransaction.commit();
-
+        if(!loginCancelled) {
+            bringUpLoginFragment();
+        }
         inputStream = getResources().openRawResource(R.raw.wordlist);
         bufferedReader =  new BufferedReader(new InputStreamReader(inputStream));
         try{
@@ -49,7 +47,17 @@ public class ScroggleActivity extends AppCompatActivity{
         }
     }
 
+    public void bringUpLoginFragment() {
+        fragmentTransaction = getFragmentManager().beginTransaction();
+        loginFragment = new LoginFragment();
+        loginFragment.setActivity(this);
+        fragmentTransaction.replace(android.R.id.content, loginFragment);
+        fragmentTransaction.commit();
+    }
+
     public void cancelLogin() {
-        fragmentTransaction.remove(loginFragment);
+        fragmentTransaction = getFragmentManager().beginTransaction();
+        fragmentTransaction.remove(loginFragment).commit();
+        loginCancelled = true;
     }
 }

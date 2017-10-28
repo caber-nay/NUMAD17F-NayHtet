@@ -18,6 +18,7 @@ public class GameActivity extends AppCompatActivity {
     public static final String PREF_RESTORE = "pref_restore";
     private GameFragment mGameFragment;
     private ControlFragment mControlFragment;
+    public String username;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
