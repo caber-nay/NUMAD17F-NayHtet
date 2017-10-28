@@ -1,5 +1,7 @@
 package edu.neu.madcourse.nayhtet;
 
+import android.app.FragmentManager;
+import android.app.FragmentTransaction;
 import android.os.Bundle;
 import android.support.v7.app.AppCompatActivity;
 

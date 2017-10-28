@@ -42,7 +42,8 @@ public class GameActivity extends AppCompatActivity {
     @Override
     protected void onResume() {
         super.onResume();
-        mControlFragment.startPhaseOneTimer();
+        mControlFragment.setPauseTimer(false);
+        //mControlFragment.startPhaseOneTimer();
     }
 
     public void startPhaseTwo(){
@@ -74,6 +75,7 @@ public class GameActivity extends AppCompatActivity {
     @Override
     protected void onPause() {
         super.onPause();
+        //mControlFragment.setPauseTimer(true);
         String gameData = mGameFragment.getState();
         getPreferences(MODE_PRIVATE).edit()
                 .putString(PREF_RESTORE, gameData)
