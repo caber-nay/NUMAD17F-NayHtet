@@ -30,8 +30,8 @@ public class ScroggleActivity extends AppCompatActivity{
         setContentView(R.layout.activity_scroggle);
 
         fragmentTransaction = getFragmentManager().beginTransaction();
-
         loginFragment = new LoginFragment();
+        loginFragment.setActivity(this);
         fragmentTransaction.replace(android.R.id.content, loginFragment);
         fragmentTransaction.commit();
 

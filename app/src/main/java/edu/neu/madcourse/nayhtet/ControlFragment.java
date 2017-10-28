@@ -122,7 +122,7 @@ public class ControlFragment extends Fragment {
                             FragmentTransaction fragmentTransaction = fragmentManager.beginTransaction();
 
                             LoginFragment loginFragment = new LoginFragment();
-                            loginFragment.setGameActivity(mGameActivity);
+                            loginFragment.setActivity(mGameActivity);
                             fragmentTransaction.replace(android.R.id.content, loginFragment);
                             fragmentTransaction.commit();
 

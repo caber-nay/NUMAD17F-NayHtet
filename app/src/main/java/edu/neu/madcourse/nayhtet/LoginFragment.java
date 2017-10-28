@@ -4,6 +4,7 @@ import android.app.AlertDialog;
 import android.app.Fragment;
 import android.content.DialogInterface;
 import android.os.Bundle;
+import android.support.v4.app.ActivityCompat;
 import android.support.v7.app.AppCompatActivity;
 import android.view.LayoutInflater;
 import android.view.View;
@@ -30,7 +31,7 @@ public class LoginFragment extends Fragment {
             @Override
             public void onClick(View view) {
                 AlertDialog.Builder builder = new AlertDialog.Builder(getActivity());
-                builder.setTitle("Congratulations, " + usernameText.getText());
+                builder.setTitle("Hello, " + usernameText.getText() + "!");
                 builder.setMessage("Your score is submitted!");
                 builder.setCancelable(false);
                 builder.setPositiveButton("OK", new DialogInterface.OnClickListener() {
@@ -52,7 +53,7 @@ public class LoginFragment extends Fragment {
         return rootView;
     }
 
-    public void setGameActivity(GameActivity mGameActivity) {
-        this.mActivity = mGameActivity;
+    public void setActivity(AppCompatActivity activity) {
+        mActivity = activity;
     }
 }
