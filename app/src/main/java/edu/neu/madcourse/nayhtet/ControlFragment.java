@@ -24,11 +24,13 @@ import com.google.firebase.database.DatabaseError;
 import com.google.firebase.database.DatabaseReference;
 import com.google.firebase.database.FirebaseDatabase;
 
+import java.util.ArrayList;
 import java.util.List;
 
 public class ControlFragment extends Fragment {
     private View rootView;
     private View score;
+
     private View timer;
     private boolean phaseTwo = false;
     private boolean pauseTimer = false;
@@ -44,10 +46,11 @@ public class ControlFragment extends Fragment {
         View main = rootView.findViewById(R.id.button_main);
         View restart = rootView.findViewById(R.id.button_restart);
         View confirm = rootView.findViewById(R.id.button_confirm);
+
         score = rootView.findViewById(R.id.text_score);
         View timer = rootView.findViewById(R.id.text_timer);
         ((TextView) timer).setText("Time: ");
-        ((TextView) score).setText("Score: 0");
+        ((TextView) score).setText("0");
         main.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
@@ -119,11 +122,12 @@ public class ControlFragment extends Fragment {
         myTimer.cancel(true);
     }
     private void timesUp() {
+        readDatabase();
         AlertDialog dialog;
         AlertDialog.Builder builder = new AlertDialog.Builder(getActivity());
         builder.setTitle(R.string.times_up);
         if (phaseTwo) {
-            builder.setMessage("Your " + ((TextView) score).getText() + "\n Submit Score?");
+            builder.setMessage("Your score:" + ((TextView) score).getText() + "\n Submit Score?");
             builder.setCancelable(false);
 
             builder.setNegativeButton(R.string.label_no, new DialogInterface.OnClickListener() {
@@ -139,7 +143,7 @@ public class ControlFragment extends Fragment {
                             // add to score board
                             // check if made to leaderboard
                             checkIfScoreMakesLeaderboard();
-                            //mGameActivity.finish();
+                            mGameActivity.finish();
                         }
                     });
             dialog = builder.show();
@@ -157,14 +161,17 @@ public class ControlFragment extends Fragment {
         }
     }
 
-    private void checkIfScoreMakesLeaderboard() {
+    private void readDatabase() {
+        users = new ArrayList<>();
         DatabaseReference mDatabase = FirebaseDatabase.getInstance().getReference();
-        //index = 0;
+        index = 0;
         mDatabase.child("leaders").addChildEventListener(
                 new ChildEventListener() {
                     @Override
                     public void onChildAdded(DataSnapshot dataSnapshot, String s) {
                         users.add(dataSnapshot.getValue(User.class));
+                        System.out.println(users.get(index));
+                        index++;
                     }
 
                     @Override
@@ -187,11 +194,9 @@ public class ControlFragment extends Fragment {
 
                     }
                 });
-        //Log.d("UTC","These are the scores I want");
-        System.out.println("These are the scores");
-        for(int i = 0; i < users.size(); i++) {
-            System.out.println(users.get(i));
-        }
+    }
+    private void checkIfScoreMakesLeaderboard() {
+
     }
 
     public View getScore() {

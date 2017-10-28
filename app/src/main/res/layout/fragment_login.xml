@@ -31,7 +31,7 @@
             android:layout_height="wrap_content"
             android:layout_gravity="center"
             android:layout_marginBottom="@dimen/menu_space"
-            android:text="Submit your score"
+            android:text="Login to Scroggle"
             android:textAppearance="?android:textAppearanceLarge"
             android:textColor="@color/scroggle_color"
             android:textSize="@dimen/menu_text_size" />
@@ -51,7 +51,7 @@
             android:layout_height="wrap_content"
             android:layout_margin="@dimen/menu_button_margin"
             android:padding="@dimen/menu_button_padding"
-            android:text="@string/button_submit" />
+            android:text="@string/button_login" />
 
         <Button
             android:id="@+id/cancel_button"

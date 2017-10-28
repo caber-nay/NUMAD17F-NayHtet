@@ -228,7 +228,7 @@ public class GameFragment extends Fragment{
                 updateAllTiles();
             }else{
                 score = score - 10;
-                scoreView.setText("Score: " + score);
+                scoreView.setText(String.valueOf(score));
                 Toast.makeText(getActivity(), "Incorrect Word",
                         Toast.LENGTH_LONG).show();
             }
@@ -249,10 +249,10 @@ public class GameFragment extends Fragment{
     private void updateScore(String word){
         if(word.length() == 9){
             score = score + 150;
-            scoreView.setText("Score: " + score);
+            scoreView.setText(String.valueOf(score));
         } else{
             score = score + word.length() * 10;
-            scoreView.setText("Score: " + score);
+            scoreView.setText(String.valueOf(score));
         }
     }
     public void restartGame() {
