@@ -18,14 +18,22 @@ import java.util.ArrayList;
 public class ScroggleActivity extends AppCompatActivity{
 
     static ArrayList<String> dict = new ArrayList<>();
-    String read;
-    InputStream inputStream;
-    BufferedReader bufferedReader;
+    private String read;
+    private InputStream inputStream;
+    private BufferedReader bufferedReader;
+    private LoginFragment loginFragment;
+    FragmentTransaction fragmentTransaction;
 
     @Override
     protected void onCreate(Bundle savedInstanceState){
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_scroggle);
+
+        fragmentTransaction = getFragmentManager().beginTransaction();
+
+        loginFragment = new LoginFragment();
+        fragmentTransaction.replace(android.R.id.content, loginFragment);
+        fragmentTransaction.commit();
 
         inputStream = getResources().openRawResource(R.raw.wordlist);
         bufferedReader =  new BufferedReader(new InputStreamReader(inputStream));
@@ -39,5 +47,9 @@ public class ScroggleActivity extends AppCompatActivity{
         } catch (IOException e) {
             e.printStackTrace();
         }
+    }
+
+    public void cancelLogin() {
+        fragmentTransaction.remove(loginFragment);
     }
 }

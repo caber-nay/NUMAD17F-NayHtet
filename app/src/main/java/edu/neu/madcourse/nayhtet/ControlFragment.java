@@ -24,6 +24,7 @@ public class ControlFragment extends Fragment {
     private boolean phaseTwo = false;
     private boolean pauseTimer = false;
     private GameActivity mGameActivity;
+    private MyTimer myTimer;
 
     @Override
     public View onCreateView(LayoutInflater inflater, ViewGroup container,
@@ -61,14 +62,14 @@ public class ControlFragment extends Fragment {
     }
 
     public void startPhaseOneTimer() {
-        MyTimer phaseOneTimer = new MyTimer();
-        phaseOneTimer.execute();
+        myTimer = new MyTimer();
+        myTimer.execute();
     }
 
     public void startPhaseTwoTimer() {
         phaseTwo = true;
-        MyTimer phaseTwoTimer = new MyTimer();
-        phaseTwoTimer.execute();
+        myTimer = new MyTimer();
+        myTimer.execute();
     }
 
     private class MyTimer extends AsyncTask<Void, Integer, Void> {
@@ -90,13 +91,6 @@ public class ControlFragment extends Fragment {
             int j = 0;
             for (int i = 1; i > -1; i--) {
                 for (; j > -1; j--) {
-                    /*while(pauseTimer) {
-                        try{
-                            Thread.sleep(1000);
-                        }catch (InterruptedException ex) {
-                            ex.printStackTrace();
-                        }
-                    }*/
                     try {
                         Thread.sleep(1000);
                     } catch (InterruptedException e) {
@@ -110,8 +104,8 @@ public class ControlFragment extends Fragment {
             return null;
         }
     }
-    private void stopTimer(MyTimer mTimer) {
-        mTimer.cancel(true);
+    public void stopTimer() {
+        myTimer.cancel(true);
     }
     private void timesUp() {
         AlertDialog dialog;
@@ -131,6 +125,7 @@ public class ControlFragment extends Fragment {
                             loginFragment.setGameActivity(mGameActivity);
                             fragmentTransaction.replace(android.R.id.content, loginFragment);
                             fragmentTransaction.commit();
+
                             //mGameActivity.finish();
                         }
                     });
@@ -161,6 +156,9 @@ public class ControlFragment extends Fragment {
         pauseTimer = value;
     }
 
+    public boolean isPaused() {
+        return pauseTimer;
+    }
     public void setGameActivity(GameActivity gameActivity) {
         mGameActivity = gameActivity;
     }

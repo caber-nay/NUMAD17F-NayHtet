@@ -26,27 +26,32 @@ public class GameActivity extends AppCompatActivity {
         // Restore game here...
         mGameFragment = (GameFragment) getFragmentManager().findFragmentById(R.id.fragment_game);
         mControlFragment = (ControlFragment) getFragmentManager().findFragmentById(R.id.fragment_game_controls);
+
         mGameFragment.setScoreView(mControlFragment.getScore());
         mControlFragment.setGameActivity(this);
 
-        boolean restore = getIntent().getBooleanExtra(KEY_RESTORE, false);
-        if (restore) {
+        boolean restore = getIntent().getBooleanExtra(KEY_RESTORE, true);
+        /*if (restore) {
             String gameData = getPreferences(MODE_PRIVATE)
-                    .getString(PREF_RESTORE, null); 
+                    .getString(PREF_RESTORE, null);
             if (gameData != null) {
                 mGameFragment.putState(gameData);
             }
+        }*/
+        if (mControlFragment.isPaused()) {
+            mControlFragment.setPauseTimer(false);
+        } else {
+            mControlFragment.startPhaseOneTimer();
         }
-        mControlFragment.startPhaseOneTimer();
     }
+
     @Override
     protected void onResume() {
         super.onResume();
-        mControlFragment.setPauseTimer(false);
         //mControlFragment.startPhaseOneTimer();
     }
 
-    public void startPhaseTwo(){
+    public void startPhaseTwo() {
         mControlFragment.startPhaseTwoTimer();
         mGameFragment.enterPhaseTwo();
     }
@@ -54,32 +59,30 @@ public class GameActivity extends AppCompatActivity {
     public void restartGame() {
         mGameFragment.restartGame();
     }
+
     public void reportWinner(final Tile.Owner winner) {
         AlertDialog.Builder builder = new AlertDialog.Builder(this);
         builder.setMessage(getString(R.string.declare_winner, winner));
         builder.setCancelable(false);
         builder.setPositiveButton(R.string.label_ok, new DialogInterface.OnClickListener() {
-                    @Override
-                    public void onClick(DialogInterface dialogInterface, int i) {
-                        finish();
-                    }
-                });
+            @Override
+            public void onClick(DialogInterface dialogInterface, int i) {
+                finish();
+            }
+        });
         final Dialog dialog = builder.create();
         dialog.show();
         // Reset the board to the initial position
         mGameFragment.initGame();
     }
-    public void confirmWord(){
+
+    public void confirmWord() {
         mGameFragment.confirmWord();
     }
+
     @Override
     protected void onPause() {
         super.onPause();
-        //mControlFragment.setPauseTimer(true);
-        String gameData = mGameFragment.getState();
-        getPreferences(MODE_PRIVATE).edit()
-                .putString(PREF_RESTORE, gameData)
-                .commit();
-        Log.d("UT3", "state = " + gameData);
+        mControlFragment.stopTimer();
     }
 }

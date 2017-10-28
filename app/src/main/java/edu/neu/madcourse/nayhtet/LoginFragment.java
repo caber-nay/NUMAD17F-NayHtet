@@ -3,12 +3,11 @@ package edu.neu.madcourse.nayhtet;
 import android.app.AlertDialog;
 import android.app.Fragment;
 import android.content.DialogInterface;
-import android.content.Intent;
 import android.os.Bundle;
+import android.support.v7.app.AppCompatActivity;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
-import android.widget.Button;
 import android.widget.EditText;
 
 /**
@@ -16,7 +15,7 @@ import android.widget.EditText;
  */
 
 public class LoginFragment extends Fragment {
-    private GameActivity mGameActivity;
+    private AppCompatActivity mActivity;
     private AlertDialog mDialog;
 
     public View onCreateView(LayoutInflater inflater, ViewGroup container,
@@ -30,19 +29,23 @@ public class LoginFragment extends Fragment {
         submitButton.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
-                Intent intent = new Intent(getActivity(), GameActivity.class);
-                getActivity().startActivity(intent);
                 AlertDialog.Builder builder = new AlertDialog.Builder(getActivity());
                 builder.setTitle("Congratulations, " + usernameText.getText());
                 builder.setMessage("Your score is submitted!");
-                builder.setCancelable(true);
+                builder.setCancelable(false);
+                builder.setPositiveButton("OK", new DialogInterface.OnClickListener() {
+                    @Override
+                    public void onClick(DialogInterface dialogInterface, int i) {
+                        mActivity.finish();
+                    }
+                });
                 mDialog = builder.show();
             }
         });
         cancelButton.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
-                mGameActivity.finish();
+                ((ScroggleActivity)mActivity).cancelLogin();
             }
         });
 
@@ -50,6 +53,6 @@ public class LoginFragment extends Fragment {
     }
 
     public void setGameActivity(GameActivity mGameActivity) {
-        this.mGameActivity = mGameActivity;
+        this.mActivity = mGameActivity;
     }
 }
