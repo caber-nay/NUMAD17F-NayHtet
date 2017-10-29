@@ -38,6 +38,8 @@ public class ControlFragment extends Fragment {
     private MyTimer myTimer;
     private int index;
     private List<User> users;
+    static int finalScore;
+    DatabaseReference mDatabase;
 
     @Override
     public View onCreateView(LayoutInflater inflater, ViewGroup container,
@@ -112,7 +114,7 @@ public class ControlFragment extends Fragment {
                     }
                     publishProgress(i, j);
                 }
-                j = 10;
+                j = 2;
             }
             publishProgress(finish);
             return null;
@@ -122,11 +124,11 @@ public class ControlFragment extends Fragment {
         myTimer.cancel(true);
     }
     private void timesUp() {
-        readDatabase();
         AlertDialog dialog;
         AlertDialog.Builder builder = new AlertDialog.Builder(getActivity());
         builder.setTitle(R.string.times_up);
         if (phaseTwo) {
+            readDatabase();
             builder.setMessage("Your score:" + ((TextView) score).getText() + "\n Submit Score?");
             builder.setCancelable(false);
 
@@ -140,8 +142,6 @@ public class ControlFragment extends Fragment {
                     new DialogInterface.OnClickListener() {
                         @Override
                         public void onClick(DialogInterface dialogInterface, int i) {
-                            // add to score board
-                            // check if made to leaderboard
                             checkIfScoreMakesLeaderboard();
                             mGameActivity.finish();
                         }
@@ -163,7 +163,7 @@ public class ControlFragment extends Fragment {
 
     private void readDatabase() {
         users = new ArrayList<>();
-        DatabaseReference mDatabase = FirebaseDatabase.getInstance().getReference();
+        mDatabase = FirebaseDatabase.getInstance().getReference();
         index = 0;
         mDatabase.child("leaders").addChildEventListener(
                 new ChildEventListener() {
@@ -196,7 +196,15 @@ public class ControlFragment extends Fragment {
                 });
     }
     private void checkIfScoreMakesLeaderboard() {
-
+        finalScore = 400;
+        mDatabase = FirebaseDatabase.getInstance().getReference("leaders");
+        User newUser = new User(ScroggleActivity.username,
+                String.valueOf(finalScore),"BOEY",User.currentDate());
+        for (int i = 0; i < users.size();i++) {
+            if(finalScore > Integer.valueOf(users.get(i).final_score)) {
+               mDatabase.child("leader5").setValue(newUser);
+            }
+        }
     }
 
     public View getScore() {

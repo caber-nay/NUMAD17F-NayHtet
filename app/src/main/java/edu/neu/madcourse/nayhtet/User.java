@@ -26,7 +26,7 @@ public class User  {
         this.best_word = bestWord;
         this.date = datePlayed;
     }
-    public String currentDate() {
+    public static String currentDate() {
         SimpleDateFormat sdf = new SimpleDateFormat("MM-dd-yyyy HH:mm:ss");
         String currentDateandTime = sdf.format(new Date());
         return currentDateandTime;

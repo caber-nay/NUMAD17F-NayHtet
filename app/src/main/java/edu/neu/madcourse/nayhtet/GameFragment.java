@@ -250,10 +250,12 @@ public class GameFragment extends Fragment{
         if(word.length() == 9){
             score = score + 150;
             scoreView.setText(String.valueOf(score));
+
         } else{
             score = score + word.length() * 10;
             scoreView.setText(String.valueOf(score));
         }
+        ControlFragment.finalScore = score;
     }
     public void restartGame() {
         initGame();
