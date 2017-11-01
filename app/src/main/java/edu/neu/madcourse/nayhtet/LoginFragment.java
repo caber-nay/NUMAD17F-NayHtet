@@ -31,16 +31,29 @@ public class LoginFragment extends Fragment {
             @Override
             public void onClick(View view) {
                 AlertDialog.Builder builder = new AlertDialog.Builder(getActivity());
-                builder.setTitle("Hello, " + usernameText.getText() + "!");
-                builder.setMessage("Welcome to Scroggle.");
-                builder.setCancelable(false);
-                builder.setPositiveButton(R.string.label_ok, new DialogInterface.OnClickListener() {
-                    @Override
-                    public void onClick(DialogInterface dialogInterface, int i) {
-                        ((ScroggleActivity)mActivity).username = usernameText.getText().toString();
-                        ((ScroggleActivity)mActivity).cancelLogin();
-                    }
-                });
+                String name = usernameText.getText().toString();
+                if(name.equals("")) {
+                    builder.setMessage("Username cannot be blank");
+                    builder.setCancelable(true);
+                    builder.setPositiveButton(R.string.label_ok, new DialogInterface.OnClickListener() {
+                        @Override
+                        public void onClick(DialogInterface dialogInterface, int i) {
+                            // cancel dialog
+                        }
+                    });
+                }else{
+                    builder.setTitle("Hello, " + usernameText.getText() + "!");
+                    builder.setMessage("Welcome to Scroggle.");
+                    builder.setCancelable(false);
+                    builder.setPositiveButton(R.string.label_ok, new DialogInterface.OnClickListener() {
+                        @Override
+                        public void onClick(DialogInterface dialogInterface, int i) {
+                            ScroggleActivity.username = usernameText.getText().toString();
+                            ScroggleActivity.loggedIn = true;
+                            ((ScroggleActivity) mActivity).cancelLogin();
+                        }
+                    });
+                }
                 mDialog = builder.show();
             }
         });

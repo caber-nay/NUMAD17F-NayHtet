@@ -16,6 +16,7 @@
     <string name="label_ok">OK</string>
     <string name="times_up">Time\'s Up!</string>
     <string name="label_leaderboard">Leaderboard</string>
+    <string name="label_scoreboard">Scoreboard</string>
     <string name="label_username">Username</string>
     <string name="label_score">Score:</string>
     <string name="label_bestWord">Best Word</string>

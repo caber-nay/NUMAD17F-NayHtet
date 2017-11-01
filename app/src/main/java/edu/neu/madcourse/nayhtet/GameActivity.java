@@ -2,7 +2,9 @@ package edu.neu.madcourse.nayhtet;
 
 import android.app.Dialog;
 import android.content.DialogInterface;
+import android.media.MediaPlayer;
 import android.os.Bundle;
+import android.provider.MediaStore;
 import android.support.v7.app.AlertDialog;
 import android.support.v7.app.AppCompatActivity;
 import android.util.Log;
@@ -19,15 +21,17 @@ public class GameActivity extends AppCompatActivity {
     private GameFragment mGameFragment;
     private ControlFragment mControlFragment;
     public String username;
+    MediaPlayer mediaPlayer;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_game);
-        // Restore game here...
         mGameFragment = (GameFragment) getFragmentManager().findFragmentById(R.id.fragment_game);
         mControlFragment = (ControlFragment) getFragmentManager().findFragmentById(R.id.fragment_game_controls);
 
+        mediaPlayer = MediaPlayer.create(getApplicationContext(),R.raw.sonic1);
+        mediaPlayer.start();
         mGameFragment.setScoreView(mControlFragment.getScore());
         mControlFragment.setGameActivity(this);
 
@@ -81,9 +85,19 @@ public class GameActivity extends AppCompatActivity {
         mGameFragment.confirmWord();
     }
 
+    public void playPhase2Music() {
+        mediaPlayer = MediaPlayer.create(getApplicationContext(),R.raw.sonic2);
+        mediaPlayer.start();
+    }
+
+    public MediaPlayer getMediaPlayer() {
+        return mediaPlayer;
+    }
     @Override
     protected void onPause() {
         super.onPause();
+        mediaPlayer.stop();
+        mediaPlayer.release();
         mControlFragment.stopTimer();
     }
 }

@@ -74,7 +74,8 @@ public class MainFragment extends Fragment {
                 builder.setMessage("Hello Android, 4th Edition \n" +
                         "Part 2 Let's Play A Game - Chapter 3, 4\n" +
                         "developer.android.com \n"+
-                        "Mobile Application Development Course");
+                        "Mobile Application Development Course \n" +
+                "SEGA Sonic Theme Songs");
                 builder.setCancelable(false);
                 builder.setPositiveButton(R.string.label_ok,
                         new DialogInterface.OnClickListener() {

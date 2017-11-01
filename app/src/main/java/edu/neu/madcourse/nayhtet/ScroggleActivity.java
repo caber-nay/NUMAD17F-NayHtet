@@ -5,6 +5,8 @@ import android.app.FragmentTransaction;
 import android.os.Bundle;
 import android.support.v7.app.AppCompatActivity;
 
+import com.google.firebase.messaging.FirebaseMessaging;
+
 import java.io.BufferedReader;
 import java.io.IOException;
 import java.io.InputStream;
@@ -16,13 +18,17 @@ import java.util.ArrayList;
  * Created by Nay Htet
  */
 public class ScroggleActivity extends AppCompatActivity{
-    static String username;
+    static String username = "";
+    static boolean loggedIn;
     static ArrayList<String> dict = new ArrayList<>();
     private String read;
     private InputStream inputStream;
     private BufferedReader bufferedReader;
     private LoginFragment loginFragment;
     static boolean loginCancelled = false;
+    final static String SERVER_KEY = "AAAASHYvjtc:APA91bHd00SOURgQswbcA_nERc-7x" +
+            "079lTJNpfYcbeVSvZiGDcIZ-QUgIPbnph0A0vsy0Di3d8-U9it1clatHeXWiNaEAKrXLWdH" +
+            "LL1VR_rYnGfYQ_uWB0Wy2TB_Xey8rlm3vEWAoxAG";
     FragmentTransaction fragmentTransaction;
 
     @Override
@@ -30,6 +36,7 @@ public class ScroggleActivity extends AppCompatActivity{
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_scroggle);
 
+        FirebaseMessaging.getInstance().subscribeToTopic("scroggle");
         if(!loginCancelled) {
             bringUpLoginFragment();
         }

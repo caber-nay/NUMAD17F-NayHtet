@@ -1,6 +1,7 @@
 package edu.neu.madcourse.nayhtet;
 
 import android.app.Fragment;
+import android.database.ContentObservable;
 import android.os.Bundle;
 import android.util.Log;
 import android.view.LayoutInflater;
@@ -27,6 +28,13 @@ public class GameFragment extends Fragment{
     static private int[] mSmallIds = {R.id.small1,R.id.small2,R.id.small3,R.id.small4,
             R.id.small5,R.id.small6,R.id.small7,R.id.small8,R.id.small9};
 
+    private final int[] validPalcement1 = {2,1,4,0,3,6,7,8,5};
+    private final int[] validPalcement2 = {4,6,3,7,8,5,2,1,0};
+    private final int[] validPalcement3 = {8,4,0,1,2,5,7,3,6};
+    private final int[] validPalcement4 = {2,4,6,3,0,1,5,7,8};
+    private final int[] validPalcement5 = {0,4,2,1,5,8,7,6,3};
+
+    private ArrayList<int[]> placements = null;
     private Tile mGameBoard = new Tile(this);
     private Tile[] mLargeTiles = new Tile[9];
     private Tile[][] mSmallTiles = new Tile[9][9];
@@ -45,6 +53,12 @@ public class GameFragment extends Fragment{
     public void onCreate(Bundle savedInstanceState){
         super.onCreate(savedInstanceState);
         setRetainInstance(true); // Retains this fragment instance across configuration changes
+        placements = new ArrayList<>();
+        placements.add(validPalcement1);
+        placements.add(validPalcement2);
+        placements.add(validPalcement3);
+        placements.add(validPalcement4);
+        placements.add(validPalcement5);
         initGame();
     }
     public View onCreateView(LayoutInflater inflater, ViewGroup container,
@@ -55,7 +69,6 @@ public class GameFragment extends Fragment{
         return rootView;
     }
     public void initGame() {
-
         Log.d("UT3", "init game");
         mGameBoard = new Tile(this);
         // Create all the tiles
@@ -76,19 +89,24 @@ public class GameFragment extends Fragment{
     private void initViews(View rootView) {
         String word;
         char temp;
+        int placementIndex;
+        int [] array;
         mGameBoard.setView(rootView);
+        Random rand = new Random();
         for (int large = 0; large < 9; large++) {
             View outer = rootView.findViewById(mLargeIds[large]);
             word = getRandomWord();
             mLargeTiles[large].setView(outer);
+            placementIndex = rand.nextInt(placements.size());
+            array = placements.get(placementIndex);
             for (int small = 0; small < 9; small++) {
                 Button inner = outer.findViewById
-                        (mSmallIds[small]);
-                temp = word.charAt(8-small);
+                        (mSmallIds[array[small]]);
+                temp = word.charAt(small);
                 inner.setText(String.valueOf(temp));
                 final int fLarge = large;
-                final int fSmall = small;
-                final Tile smallTile = mSmallTiles[large][small];
+                final int fSmall = array[small];
+                final Tile smallTile = mSmallTiles[large][array[small]];
                 smallTile.setLetter(temp);
                 smallTile.setView(inner);
                 inner.setOnClickListener(new View.OnClickListener() {
@@ -222,6 +240,9 @@ public class GameFragment extends Fragment{
                     currentWord.get(i).setOwner(Tile.Owner.FIRST);
                 }
                 currentWord.clear();
+                if (guess.length() > ControlFragment.bestWord.length()) {
+                    ControlFragment.bestWord = guess;
+                }
                 clearAvailable();
                 updateScore(guess);
                 setAllAvailable();
