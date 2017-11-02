@@ -54,6 +54,9 @@ public class ControlFragment extends Fragment {
     private List<User> users;
     static int finalScore;
     static String bestWord = "";
+    private static final String SERVER_KEY = "key=AAAASHYvjtc:APA91bHd00SOURgQswbcA_nERc-" +
+            "7x079lTJNpfYcbeVSvZiGDcIZ-QUgIPbnph0A0vsy0Di3d8-U9it1clatHeXWiNaEAKrXLWdHLL1VR" +
+            "_rYnGfYQ_uWB0Wy2TB_Xey8rlm3vEWAoxAG";
     DatabaseReference mDatabase;
     private boolean isMute = false;
     MediaPlayer mediaPlayer;
@@ -256,14 +259,14 @@ public class ControlFragment extends Fragment {
             User newUser = new User(ScroggleActivity.username,
                     String.valueOf(finalScore), bestWord, User.currentDate());
             mDatabase.child(ScroggleActivity.username).setValue(newUser);
-            if (finalScore > Integer.parseInt(users.get(users.size()-1).final_score)){
-                    sendMessageToScroggle();
+            if (finalScore > Integer.parseInt(users.get(users.size() - 1).final_score)) {
+                sendMessageToScroggle();
             }
         }
         // Add to scoreboard for current user
         mDatabase = firebase.getReference("users").child(ScroggleActivity.username);
         final User newScore = new User(ScroggleActivity.username,
-                String.valueOf(finalScore),bestWord,User.currentDate());
+                String.valueOf(finalScore), bestWord, User.currentDate());
         mDatabase.setValue(newScore.date);
         mDatabase.child(newScore.date).setValue(newScore);
     }
@@ -276,25 +279,26 @@ public class ControlFragment extends Fragment {
             }
         }).start();
     }
+
     private void sendMessage() {
         JSONObject jPayload = new JSONObject();
         JSONObject jNotification = new JSONObject();
         try {
-            jNotification.put("message", "New Leader" );
-            jNotification.put("body",ScroggleActivity.username
+            jNotification.put("message", "New Leader");
+            jNotification.put("body", ScroggleActivity.username
                     + " is now leading the leaderboard!");
             jNotification.put("sound", "default");
-            jNotification.put("badge",1);
+            jNotification.put("badge", 1);
             jNotification.put("click_action", "OPEN_ACTIVITY_1");
 
-            jPayload.put("to","/topics/scroggle");
-            jPayload.put("priority","high");
-            jPayload.put("notification",jNotification);
+            jPayload.put("to", "/topics/scroggle");
+            jPayload.put("priority", "high");
+            jPayload.put("notification", jNotification);
 
             URL url = new URL("https://fcm.googleapis.com/fcm/send");
             HttpURLConnection conn = (HttpURLConnection) url.openConnection();
             conn.setRequestMethod("POST");
-            conn.setRequestProperty("Authorization", ScroggleActivity.SERVER_KEY);
+            conn.setRequestProperty("Authorization", SERVER_KEY);
             conn.setRequestProperty("Content-Type", "application/json");
             conn.setDoOutput(true);
 
